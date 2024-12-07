@@ -156,10 +156,10 @@ def annotate_images(input_dir, output_dir):
 
 # Example usage:
 src_dir = "Dataset/Images/NSL_Vowel/S1_NSL_Vowel_Unprepared_Bright"
-dest_dir = "Dataset/YOLO_Data_ver3"  # Directory where train and test will be saved
+dest_dir = "Dataset/YOLO_Data_ver4"  # Directory where train and test will be saved
 
 # Split the data into train and test sets
 split_data(src_dir, dest_dir, train_size=0.7)
 
-annotate_images(os.path.join(dest_dir, 'train', 'train_images'), os.path.join(dest_dir, 'train', 'train_annotations'))
+# annotate_images(os.path.join(dest_dir, 'train', 'train_images'), os.path.join(dest_dir, 'train', 'train_annotations'))
 annotate_images(os.path.join(dest_dir, 'test', 'test_images'), os.path.join(dest_dir, 'test', 'test_annotations'))
