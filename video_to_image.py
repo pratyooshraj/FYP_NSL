@@ -88,3 +88,4 @@ output_dir = "Dataset/Images/NSL_Vowel/S1_NSL_Vowel_Unprepared_Bright"
 frame_rate = 15  # Extract 10 frames per second
 
 process_videos(input_dir, output_dir, frame_rate)
+# a
