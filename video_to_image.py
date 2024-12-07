@@ -1,15 +1,20 @@
+import uuid
 import cv2
 import os
 
-def extract_frames(video_path, output_dir, frame_rate=10):
+def extract_frames(video_path, output_dir, video_name, frame_rate=10):
     """
     Extracts frames from a video and saves them to a directory.
 
     Args:
         video_path (str): Path to the input video file.
         output_dir (str): Directory to save the extracted frames.
+        video_name (str): Name of the video, used in the frame filenames.
         frame_rate (int): Number of frames to extract per second of video.
     """
+    if "_" in video_name:
+        video_name = video_name.split("_", 1)[1]
+
     # Create the output directory if it doesn't exist
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
@@ -43,15 +48,13 @@ def extract_frames(video_path, output_dir, frame_rate=10):
 
         # Save every 'interval' frame
         if frame_count % interval == 0:
-            frame_filename = os.path.join(output_dir, f"frame_{saved_frame_count:04d}.jpg")
+            unique_id = uuid.uuid4()  # Generate a unique identifier
+            frame_filename = os.path.join(output_dir, f"{video_name}_{unique_id}_{saved_frame_count:04d}.jpg")
             cv2.imwrite(frame_filename, frame)
             saved_frame_count += 1
 
-        frame_count += 1
-
     video_capture.release()
     print(f"Frames saved to {output_dir}: {saved_frame_count} frames extracted")
-
 
 def process_videos(input_dir, output_dir, frame_rate=10):
     """
@@ -79,13 +82,11 @@ def process_videos(input_dir, output_dir, frame_rate=10):
         video_output_dir = os.path.join(output_dir, video_name)
 
         # Extract frames for the current video
-        extract_frames(video_path, video_output_dir, frame_rate)
-
+        extract_frames(video_path, video_output_dir, video_name, frame_rate)
 
 # Example usage
 input_dir = "Dataset/Videos/NSL_Vowel/S1_NSL_Vowel_Unprepared_Bright"
 output_dir = "Dataset/Images/NSL_Vowel/S1_NSL_Vowel_Unprepared_Bright"
-frame_rate = 15  # Extract 10 frames per second
+frame_rate = 15  # Extract 15 frames per second
 
 process_videos(input_dir, output_dir, frame_rate)
-# a
