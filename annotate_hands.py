@@ -108,10 +108,10 @@ def batch_process_images(input_dir, output_dir, class_id=0):
 
 
 # Example usage
-letter='I'
-input_dir = f"Dataset/Images/NSL_Vowel/S1_NSL_Vowel_Unprepared_Bright/S1_{letter}"  # Replace with the folder containing images
-output_dir = f"Dataset/Images/NSL_Vowel/S1_NSL_Vowel_Unprepared_Bright/S1_{letter}"  # Replace with the folder to save annotations
-class_id = gesture_mapping_vowels[letter]  # Class ID for hand gestures to be changed for each gesture.
-# maybe create a dictionary with key as character and value as class_id
+for key,value in gesture_mapping_vowels.items():
+    letter=key
+    input_dir = f"Dataset/Images/NSL_Vowel/S1_NSL_Vowel_Unprepared_Bright/S1_{letter}"  # Replace with the folder containing images
+    output_dir = f"Dataset/Images/NSL_Vowel/S1_NSL_Vowel_Unprepared_Bright/S1_{letter}"  # Replace with the folder to save annotations
+    class_id = gesture_mapping_vowels[letter]  # Class ID for hand gestures to be changed for each gesture.
 
-batch_process_images(input_dir, output_dir, class_id)
+    batch_process_images(input_dir, output_dir, class_id)
