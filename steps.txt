@@ -1,3 +1,4 @@
 1.run video_to_image
-2.annotate_hands            nneds to run in portions causing prblms
-3. create yolo_data
+2.augment
+3.annotate_hands            nneds to run in portions causing prblms
+4. create yolo_data

@@ -153,13 +153,13 @@ def annotate_images(input_dir, output_dir):
             annotate_output_dir = os.path.join(output_dir, sub_dir)
             detect_and_annotate(image_path, annotate_output_dir, class_id)
 
-
+if __name__ == "__main__":
 # Example usage:
-src_dir = "Dataset/Images/NSL_Vowel/S1_NSL_Vowel_Unprepared_Bright"     #group 1
-dest_dir = "Dataset/YOLO_Data_ver4"  # Directory where train and test will be saved
+    src_dir = "Dataset/Images/NSL_Vowel/S1_NSL_Vowel_Unprepared_Bright"     #group 1
+    dest_dir = "Dataset/YOLO_Data_ver4"  # Directory where train and test will be saved
 
-# Split the data into train and test sets
-split_data(src_dir, dest_dir, train_size=0.7)
+    # Split the data into train and test sets
+    split_data(src_dir, dest_dir, train_size=0.7)
 
-# annotate_images(os.path.join(dest_dir, 'train', 'train_images'), os.path.join(dest_dir, 'train', 'train_annotations'))
-annotate_images(os.path.join(dest_dir, 'test', 'test_images'), os.path.join(dest_dir, 'test', 'test_annotations'))
+    # annotate_images(os.path.join(dest_dir, 'train', 'train_images'), os.path.join(dest_dir, 'train', 'train_annotations'))
+    annotate_images(os.path.join(dest_dir, 'test', 'test_images'), os.path.join(dest_dir, 'test', 'test_annotations'))

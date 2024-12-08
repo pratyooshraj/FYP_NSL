@@ -84,9 +84,10 @@ def process_videos(input_dir, output_dir, frame_rate=10):
         # Extract frames for the current video
         extract_frames(video_path, video_output_dir, video_name, frame_rate)
 
+if __name__ == "__main__":
 # Example usage
-input_dir = "Dataset/Videos/NSL_Vowel/S1_NSL_Vowel_Unprepared_Bright"
-output_dir = "Dataset/Images/NSL_Vowel/S1_NSL_Vowel_Unprepared_Bright"
-frame_rate = 15  # Extract 15 frames per second
+    input_dir = "Dataset/Videos/NSL_Vowel/S1_NSL_Vowel_Unprepared_Bright"
+    output_dir = "Dataset/Images/NSL_Vowel/S1_NSL_Vowel_Unprepared_Bright"
+    frame_rate = 15  # Extract 15 frames per second
 
-process_videos(input_dir, output_dir, frame_rate)
+    process_videos(input_dir, output_dir, frame_rate)
