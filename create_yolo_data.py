@@ -33,3 +33,5 @@ if os.path.exists(data_folder) and os.path.isdir(data_folder):
     print("All images moved to the respective main folders.")
 else:
     print(f"Error: The folder '{data_folder}' does not exist or is not a directory.")
+
+#ab
