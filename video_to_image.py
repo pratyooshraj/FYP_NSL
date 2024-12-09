@@ -2,6 +2,35 @@ import uuid
 import cv2
 import os
 
+def resize_with_aspect_ratio(image, target_size=(640, 640)):
+    """
+    Resize an image to the target size while maintaining aspect ratio by cropping.
+
+    Args:
+        image (numpy.ndarray): Input image.
+        target_size (tuple): Target size as (width, height).
+
+    Returns:
+        numpy.ndarray: Resized and cropped image.
+    """
+    target_width, target_height = target_size
+    height, width = image.shape[:2]
+
+    # Calculate the scaling factor
+    scale = max(target_width / width, target_height / height)
+    resized_width = int(width * scale)
+    resized_height = int(height * scale)
+
+    # Resize the image
+    resized_image = cv2.resize(image, (resized_width, resized_height))
+
+    # Crop the center
+    start_x = (resized_width - target_width) // 2
+    start_y = (resized_height - target_height) // 2
+    cropped_image = resized_image[start_y:start_y + target_height, start_x:start_x + target_width]
+
+    return cropped_image
+
 def extract_frames(video_path, output_dir, video_name, frame_rate=10):
     """
     Extracts frames from a video and saves them to a directory.
@@ -50,6 +79,8 @@ def extract_frames(video_path, output_dir, video_name, frame_rate=10):
         if frame_count % interval == 0:
             unique_id = uuid.uuid4()  # Generate a unique identifier
             frame_filename = os.path.join(output_dir, f"{video_name}_{unique_id}_{saved_frame_count:04d}.jpg")
+            frame = cv2.resize(frame, (640, 640))           # check before saving
+            # frame = resize_with_aspect_ratio(frame, target_size=(640, 640))
             cv2.imwrite(frame_filename, frame)
             saved_frame_count += 1
 
@@ -84,10 +115,31 @@ def process_videos(input_dir, output_dir, frame_rate=10):
         # Extract frames for the current video
         extract_frames(video_path, video_output_dir, video_name, frame_rate)
 
-if __name__ == "__main__":
+# if __name__ == "__main__":
 # Example usage
-    input_dir = "Dataset/Videos/NSL_Vowel/S1_NSL_Vowel_Unprepared_Bright"
-    output_dir = "Dataset/Images/NSL_Vowel/S1_NSL_Vowel_Unprepared_Bright"
+#     input_dir = "Dataset/Videos/NSL_Vowel/S2_NSL_Vowel_Unprepared_Dark_Cropped"
+#     output_dir = "Dataset/Images/NSL_Vowel/S2_NSL_Vowel_Unprepared_Dark_Cropped"
+#     frame_rate = 15  # Extract 15 frames per second
+#
+#     process_videos(input_dir, output_dir, frame_rate)
+
+if __name__ == "__main__":
+    # Parent directory containing subdirectories of videos
+    parent_dir = "Dataset/Videos/NSL_Consonant_Part_1"
+    output_parent_dir = "Dataset/Images2/NSL_Consonant_Part_1"
     frame_rate = 15  # Extract 15 frames per second
 
-    process_videos(input_dir, output_dir, frame_rate)
+    # Loop through each subdirectory in the parent directory
+    for sub_dir in os.listdir(parent_dir):
+        sub_dir_path = os.path.join(parent_dir, sub_dir)
+
+        # Check if it's a directory
+        if os.path.isdir(sub_dir_path):
+            print(f"Processing videos in subdirectory: {sub_dir}")
+
+            # Define the corresponding output subdirectory
+            output_sub_dir = os.path.join(output_parent_dir, sub_dir)
+            # print(f"output_sub_dir={output_sub_dir}")
+            # print(f"sub_dir_path={sub_dir_path}")
+            # Process videos in the current subdirectory
+            process_videos(sub_dir_path, output_sub_dir, frame_rate)

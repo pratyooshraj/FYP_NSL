@@ -6,7 +6,7 @@ import random
 import os
 
 
-def random_rotate(image, angle_range=(-15, 15)):
+def random_rotate(image, angle_range=(-25, 25)):
     """Randomly rotate the image."""
     height, width = image.shape[:2]
     angle = random.uniform(*angle_range)
@@ -14,14 +14,14 @@ def random_rotate(image, angle_range=(-15, 15)):
     return cv2.warpAffine(image, matrix, (width, height), borderMode=cv2.BORDER_REFLECT)
 
 
-def adjust_brightness_contrast(image, brightness_range=(0.8, 1.2), contrast_range=(0.8, 1.2)):
+def adjust_brightness_contrast(image, brightness_range=(0.75, 1.25), contrast_range=(0.8, 1.2)):
     """Adjust brightness and contrast of the image."""
     brightness = random.uniform(*brightness_range)
     contrast = random.uniform(*contrast_range)
     return cv2.convertScaleAbs(image, alpha=contrast, beta=int(brightness * 50))
 
 
-def random_scale(image, scale_range=(0.8, 1.2)):
+def random_scale(image, scale_range=(0.75, 1.25)):
     """Randomly scale the image."""
     height, width = image.shape[:2]
     scale = random.uniform(*scale_range)
@@ -39,24 +39,11 @@ def random_scale(image, scale_range=(0.8, 1.2)):
         return cv2.copyMakeBorder(scaled_image, pad_y, pad_y, pad_x, pad_x, cv2.BORDER_REFLECT)
 
 
-def random_crop(image, crop_fraction=0.1):
-    """Randomly crop the image."""
-    height, width = image.shape[:2]
-    max_crop_x = int(width * crop_fraction)
-    max_crop_y = int(height * crop_fraction)
-
-    crop_x = random.randint(0, max_crop_x)
-    crop_y = random.randint(0, max_crop_y)
-
-    return image[crop_y:height - crop_y, crop_x:width - crop_x]
-
-
 def augment_image(image):
     """Apply all augmentations to the image."""
     image = random_rotate(image)
     image = adjust_brightness_contrast(image)
     image = random_scale(image)
-    image = random_crop(image)
     return image
 
 
@@ -79,13 +66,18 @@ def augment_images(input_dir, output_dir):
                 augmented_image = augment_image(image)
 
                 # Save the augmented image
-                save_path = os.path.join(save_dir, f"aug_{file}")
+                file_name, file_ext = os.path.splitext(file)
+                augmented_file_name = f"{file_name}_aug{file_ext}"
+
+                # Construct the save path
+                save_path = os.path.join(save_dir, augmented_file_name)
                 cv2.imwrite(save_path, augmented_image)
                 print(f"Processed and saved: {save_path}")
 
 
 if __name__ == "__main__":
     # Example usage
-    input_dir = "path_to_extracted_frames"
-    output_dir = "path_to_augmented_images"
+    input_dir = "Dataset/Images/NSL_Vowel/S1_NSL_Vowel_Unprepared_Bright"
+    output_dir = "Dataset/Images/NSL_Vowel/S1_NSL_Vowel_Unprepared_Bright"
     augment_images(input_dir, output_dir)
+
