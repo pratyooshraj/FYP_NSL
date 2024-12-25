@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Language Recognition</title>
+</head>
+<body>
+    <h1>Real-time Nepali Sign Language Recognition</h1>
+    <img src="{{ url_for('video_feed') }}" alt="Video Feed">
+    <h2>Detected Sentence:</h2>
+    <p id="sentence"></p>
+    <script>
+        setInterval(() => {
+            fetch('/get_sentence')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('sentence').innerText = 'Sentence: ' + data.sentence;
+                });
+        }, 1000);  // Update sentence every 1 second
+    </script>
+</body>
+</html>

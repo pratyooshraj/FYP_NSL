@@ -11,11 +11,11 @@ def capture_images(output_dir, save_images=True):
         output_dir (str): Directory to save captured images.
         save_images (bool): Whether to save the images with detected hands.
     """
-    # Initialize MediaPipe Hands
-    mp_hands = mp.solutions.hands
-    hands = mp_hands.Hands(static_image_mode=False, max_num_hands=2, min_detection_confidence=0.8, min_tracking_confidence=0.5)
-
-    mp_drawing = mp.solutions.drawing_utils
+    # # Initialize MediaPipe Hands
+    # mp_hands = mp.solutions.hands
+    # hands = mp_hands.Hands(static_image_mode=False, max_num_hands=2, min_detection_confidence=0.8, min_tracking_confidence=0.5)
+    #
+    # mp_drawing = mp.solutions.drawing_utils
 
     # Open the webcam
     cap = cv2.VideoCapture(0)
@@ -23,7 +23,7 @@ def capture_images(output_dir, save_images=True):
         print("Error: Could not open the webcam.")
         return
 
-    # os.makedirs(output_dir, exist_ok=True)
+    os.makedirs(output_dir, exist_ok=True)
 
     frame_count = 0
     print("Press 's' to save an image, 'q' to quit.")
@@ -38,15 +38,15 @@ def capture_images(output_dir, save_images=True):
         frame = cv2.flip(frame, 1)
 
         # Convert the frame to RGB (MediaPipe requires RGB images)
-        frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-
-        # Process the frame for hand detection
-        results = hands.process(frame_rgb)
-
-        # Draw hand landmarks on the frame
-        if results.multi_hand_landmarks:
-            for hand_landmarks in results.multi_hand_landmarks:
-                mp_drawing.draw_landmarks(frame, hand_landmarks, mp_hands.HAND_CONNECTIONS)
+        # frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+        #
+        # # Process the frame for hand detection
+        # results = hands.process(frame_rgb)
+        #
+        # # Draw hand landmarks on the frame
+        # if results.multi_hand_landmarks:
+        #     for hand_landmarks in results.multi_hand_landmarks:
+        #         mp_drawing.draw_landmarks(frame, hand_landmarks, mp_hands.HAND_CONNECTIONS)
 
         # Display the frame
         cv2.imshow("Hand Landmark Detection", frame)
@@ -56,16 +56,16 @@ def capture_images(output_dir, save_images=True):
         if key == ord('q'):  # Quit
             print("Quitting...")
             break
-        # elif key == ord('s') and save_images:  # Save image
-        #     image_path = os.path.join(output_dir, f"frame_{frame_count:04d}.jpg")
-        #     cv2.imwrite(image_path, frame)
-        #     print(f"Image saved: {image_path}")
-        #     frame_count += 1
+        elif key == ord('s') and save_images:  # Save image
+            image_path = os.path.join(output_dir, f"frame_{frame_count:04d}.jpg")
+            cv2.imwrite(image_path, frame)
+            print(f"Image saved: {image_path}")
+            frame_count += 1
 
     # Release resources
     cap.release()
     cv2.destroyAllWindows()
-    hands.close()
+    # hands.close()
 
 # Example usage
 output_dir = "captured_images"  # Directory to save images
