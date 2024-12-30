@@ -2,6 +2,8 @@ import cv2
 import mediapipe as mp
 import os
 
+from gesture_mapping import gesture_mapping_vowels, gesture_mapping_consonants
+
 def capture_images(output_dir, save_images=True):
     """
     Captures images from a webcam, detects hand landmarks in real-time using MediaPipe,
@@ -22,11 +24,14 @@ def capture_images(output_dir, save_images=True):
     if not cap.isOpened():
         print("Error: Could not open the webcam.")
         return
-
-    os.makedirs(output_dir, exist_ok=True)
+    gesture_keys = list(gesture_mapping_vowels.keys())
+    # gesture_keys = list(gesture_mapping_consonants.keys())
+    count_letter=0
+    letter_dir=os.path.join(output_dir,gesture_keys[count_letter])
+    os.makedirs(letter_dir, exist_ok=True)
 
     frame_count = 0
-    print("Press 's' to save an image, 'q' to quit.")
+    print("Press 's' to save an image, 'q' to quit, 'n' to move to next letter.")
 
     while cap.isOpened():
         ret, frame = cap.read()
@@ -57,10 +62,20 @@ def capture_images(output_dir, save_images=True):
             print("Quitting...")
             break
         elif key == ord('s') and save_images:  # Save image
-            image_path = os.path.join(output_dir, f"frame_{frame_count:04d}.jpg")
+            image_path = os.path.join(letter_dir, f"{gesture_keys[count_letter]}_frame_{frame_count:04d}.jpg")
             cv2.imwrite(image_path, frame)
             print(f"Image saved: {image_path}")
             frame_count += 1
+        elif key == ord('n'):  # Move to next gesture
+            count_letter += 1
+            if count_letter < len(gesture_keys):
+                print(f"Current letter: {gesture_keys[count_letter]}")
+                letter_dir = os.path.join(output_dir, gesture_keys[count_letter])
+                os.makedirs(letter_dir, exist_ok=True)
+                frame_count = 0  # Reset frame count for the new gesture
+            else:
+                print("All gestures captured!")
+                break
 
     # Release resources
     cap.release()
@@ -68,5 +83,5 @@ def capture_images(output_dir, save_images=True):
     # hands.close()
 
 # Example usage
-output_dir = "captured_images"  # Directory to save images
+output_dir = "../Dataset/captured_images"  # Directory to save images
 capture_images(output_dir)

@@ -1,5 +1,5 @@
-1.run video_to_image
-1.1 capture image if necessary
+1.0 run video_to_image: this converts all videos with single letters to folder of images
+1.1 capture_image: capture images and store in directory of vowel name
 2.augment
 3.annotate_hands_eff            nneds to run in portions causing prblms
 4. create yolo_data         don't think this runs properly

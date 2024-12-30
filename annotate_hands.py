@@ -91,7 +91,7 @@ def detect_and_annotate(image_path, output_dir, class_id=0):
 
     with open(annotation_path, "w") as annotation_file:
         for hand_landmarks in results.multi_hand_landmarks:
-            offset = 25
+            offset = 30
             # Get bounding box from landmarks
             x_min = max(0, min([lm.x for lm in hand_landmarks.landmark]) * width - offset)
             y_min = max(0, min([lm.y for lm in hand_landmarks.landmark]) * height - offset)
