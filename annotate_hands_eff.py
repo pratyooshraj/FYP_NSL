@@ -39,9 +39,21 @@ def detect_and_annotate(image_path, output_dir, class_id, hands_processor, width
     image_rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
     results = hands_processor.process(image_rgb)
 
+    # if not results.multi_hand_landmarks:
+    #     print(f"No hands detected in {image_path}")
+    #     os.remove(image_path)
+    #     return False
     if not results.multi_hand_landmarks:
         print(f"No hands detected in {image_path}")
-        os.remove(image_path)
+
+        # Define the target directory for images with no hands detected
+        hands_not_found_dir = os.path.join("dataset", "hands_not_found")
+        os.makedirs(hands_not_found_dir, exist_ok=True)  # Ensure the directory exists
+
+        # Move the image to the target directory
+        target_path = os.path.join(hands_not_found_dir, os.path.basename(image_path))
+        os.rename(image_path, target_path)  # Move the file
+        print(f"Moved {image_path} to {target_path}")
         return False
 
     annotation_path = os.path.join(output_dir, os.path.splitext(os.path.basename(image_path))[0] + ".txt")
@@ -49,7 +61,7 @@ def detect_and_annotate(image_path, output_dir, class_id, hands_processor, width
 
     with open(annotation_path, "w") as f:
         for hand_landmarks in results.multi_hand_landmarks:
-            offset = 25
+            offset = 30
             x_min = max(0, min([lm.x for lm in hand_landmarks.landmark]) * width - offset)
             y_min = max(0, min([lm.y for lm in hand_landmarks.landmark]) * height - offset)
             x_max = min(width, max([lm.x for lm in hand_landmarks.landmark]) * width + offset)

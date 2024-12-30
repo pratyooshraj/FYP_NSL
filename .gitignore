@@ -2,3 +2,4 @@
 Dataset/
 **/__pycache__/
 **/.idea/
+*.wav

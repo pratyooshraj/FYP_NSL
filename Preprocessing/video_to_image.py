@@ -1,3 +1,7 @@
+# The script is used to convert videos in a directory to images of each letter. A folder of images for each letter is created.
+# The video used here shows only single alphabet.
+# Needs to be run 3 times (vowel, consonants_part1, consonants_part2)
+
 import uuid
 import cv2
 import os
@@ -125,9 +129,20 @@ def process_videos(input_dir, output_dir, frame_rate=10):
 
 if __name__ == "__main__":
     # Parent directory containing subdirectories of videos
-    parent_dir = "Dataset/Videos/NSL_Consonant_Part_1"
-    output_parent_dir = "Dataset/Images2/NSL_Consonant_Part_1"
-    frame_rate = 15  # Extract 15 frames per second
+
+    # part 1
+    # parent_dir = "../Dataset/Videos/NSL_Vowel"
+    # output_parent_dir = "../Dataset/Images_20fr/NSL_Vowel"
+
+    # part 2
+    # parent_dir = "../Dataset/Videos/NSL_Consonant_Part_1"
+    # output_parent_dir = "../Dataset/Images_20fr/NSL_Consonant_Part_1"
+
+    # part 3
+    parent_dir = "../Dataset/Videos/NSL_Consonant_Part_1_2"
+    output_parent_dir = "../Dataset/Images_20fr/NSL_Consonant_Part_1_2"
+
+    frame_rate = 20  # Extract 20 frames per second
 
     # Loop through each subdirectory in the parent directory
     for sub_dir in os.listdir(parent_dir):

@@ -64,20 +64,36 @@ def augment_images(input_dir, output_dir):
                     continue
 
                 augmented_image = augment_image(image)
+                rot_image = random_rotate(image)
+                bright_image = adjust_brightness_contrast(image)
+                scale_image = random_scale(image)
 
                 # Save the augmented image
                 file_name, file_ext = os.path.splitext(file)
                 augmented_file_name = f"{file_name}_aug{file_ext}"
+                rot_file_name = f"{file_name}_aug1{file_ext}"
+                bright_file_name = f"{file_name}_aug2{file_ext}"
+                scale_file_name = f"{file_name}_aug3{file_ext}"
+
 
                 # Construct the save path
                 save_path = os.path.join(save_dir, augmented_file_name)
+                save_path1 = os.path.join(save_dir, rot_file_name)
+                save_path2 = os.path.join(save_dir, bright_file_name)
+                save_path3 = os.path.join(save_dir, scale_file_name)
                 cv2.imwrite(save_path, augmented_image)
+                cv2.imwrite(save_path1, rot_image)
+                cv2.imwrite(save_path2, bright_image)
+                cv2.imwrite(save_path3, scale_image)
                 print(f"Processed and saved: {save_path}")
+                print(f"Processed and saved: {save_path1}")
+                print(f"Processed and saved: {save_path2}")
+                print(f"Processed and saved: {save_path3}")
 
 
 if __name__ == "__main__":
     # Example usage
     input_dir = "Dataset/Images/NSL_Vowel/S1_NSL_Vowel_Unprepared_Bright"
-    output_dir = "Dataset/Images/NSL_Vowel/S1_NSL_Vowel_Unprepared_Bright"
+    output_dir = "Dataset/Images3/NSL_Vowel/S1_NSL_Vowel_Unprepared_Bright"
     augment_images(input_dir, output_dir)
 

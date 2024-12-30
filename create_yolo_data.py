@@ -4,17 +4,17 @@ import shutil
 data_folder = 'Dataset/YOLO_Data_ver5_2'  # Replace with your folder path
 
 # Check if the main data folder exists
-if os.path.exists(data_folder) and os.path.isdir(data_folder):
-    for root_dir in os.listdir(data_folder):
-        root_dir_path = os.path.join(data_folder, root_dir)
+if os.path.exists(data_folder) and os.path.isdir(data_folder):  #YOLO_Data_ver5_2
+    for dir_lvl1 in os.listdir(data_folder):
+        dir_lvl1_path = os.path.join(data_folder, dir_lvl1)
 
-        # Ensure the root_dir_path is a directory
-        if os.path.isdir(root_dir_path):
-            for sub_dir in os.listdir(root_dir_path):
-                sub_dir_path = os.path.join(root_dir_path, sub_dir)
+        # Ensure the dir_path is a directory
+        if os.path.isdir(dir_lvl1_path):            #YOLO_Data_ver5_2/test
+            for sub_dir in os.listdir(dir_lvl1_path):
+                sub_dir_path = os.path.join(dir_lvl1_path, sub_dir)
 
                 # Ensure the sub_dir_path is a directory
-                if os.path.isdir(sub_dir_path):
+                if os.path.isdir(sub_dir_path):             #YOLO_Data_ver5_2/test/test_ammptatopms
                     for nested_dir in os.listdir(sub_dir_path):
                         nested_dir_path = os.path.join(sub_dir_path, nested_dir)
 
