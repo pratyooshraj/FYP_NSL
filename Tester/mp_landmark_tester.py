@@ -23,7 +23,7 @@ def detect_and_annotate(image_path, output_dir, class_id, hands_processor, width
         print(f"No hands detected in {image_path}")
 
         # Define the target directory for images with no hands detected
-        hands_not_found_dir = os.path.join("Dataset", "hands_not_found")
+        hands_not_found_dir = os.path.join("../Dataset", "hands_not_found")
         os.makedirs(hands_not_found_dir, exist_ok=True)  # Ensure the directory exists
 
         # Move the image to the target directory
@@ -95,7 +95,7 @@ def annotate_images(input_dir, output_dir, class_id):
 
 
 if __name__ == "__main__":
-    input_folder = "Preprocessing/captured_images"  # Path to folder containing images
+    input_folder = "../Dataset/captured_images/consonants/GYA"  # Path to folder containing images
     output_folder = "captured_images/y_annotated"  # Path to save annotations and visualizations
     gesture_class_id = 0  # Replace with the correct class ID
 
