@@ -15,8 +15,8 @@ class GestureRecognitionApp:
         self.root.geometry("800x700")
 
         # Initialize YOLO model
-        self.model = YOLO("path_to_yolo_model.pt")  # Update with your YOLO model path
-
+        # self.model = YOLO("path_to_yolo_model.pt")  # Update with your YOLO model path
+        self.model=""
         # Video Capture variables
         self.cap = None
         self.video_running = False
@@ -68,6 +68,7 @@ class GestureRecognitionApp:
         self.thread.start()
 
     def update_frame(self):
+        pass
         while self.video_running:
             ret, frame = self.cap.read()
             if not ret:
