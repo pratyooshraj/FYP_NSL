@@ -95,7 +95,7 @@ def annotate_images(input_dir, output_dir, class_id):
 
 
 if __name__ == "__main__":
-    input_folder = "../Dataset/captured_images/consonants/GYA"  # Path to folder containing images
+    input_folder = "../Dataset/captured_images/vowels/A"  # Path to folder containing images
     output_folder = "captured_images/y_annotated"  # Path to save annotations and visualizations
     gesture_class_id = 0  # Replace with the correct class ID
 
