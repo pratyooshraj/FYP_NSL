@@ -29,6 +29,50 @@ def split_data(src_dir, dest_dir, train_size=0.7):
                 shutil.copy(os.path.join(sub_dir_path, file), os.path.join(class_save_dir, file))
 
 
+
+
+def split_data(src_dir, dest_dir, train_size=0.8, val_size=0.1, test_size=0.1):
+    """Split the dataset into train, validation, and test sets, maintaining class structure."""
+
+    # Validate that the sum of train_size, val_size, and test_size is 1
+    if train_size + val_size + test_size != 1.0:
+        raise ValueError("The sum of train_size, val_size, and test_size must equal 1.0")
+
+    # Create directories for train, validation, and test sets
+    train_dir = os.path.join(dest_dir, 'train', 'train_images')
+    val_dir = os.path.join(dest_dir, 'val', 'val_images')
+    test_dir = os.path.join(dest_dir, 'test', 'test_images')
+
+    os.makedirs(train_dir, exist_ok=True)
+    os.makedirs(val_dir, exist_ok=True)
+    os.makedirs(test_dir, exist_ok=True)
+
+    # Loop through each class folder in the source directory
+    for sub_dir in os.listdir(src_dir):
+        sub_dir_path = os.path.join(src_dir, sub_dir)
+
+        if not os.path.isdir(sub_dir_path):
+            continue
+
+        # Get list of image files in the current class folder
+        image_files = [f for f in os.listdir(sub_dir_path) if f.lower().endswith(('.jpg', '.png', '.jpeg'))]
+
+        # Split data into train and remaining (val + test) set
+        train_files, remaining_files = train_test_split(image_files, train_size=train_size, random_state=42)
+
+        # Split remaining files into validation and test sets
+        val_files, test_files = train_test_split(remaining_files, train_size=val_size / (val_size + test_size),
+                                                 random_state=42)
+
+        # Copy files into corresponding directories
+        for file_set, save_dir in [(train_files, train_dir), (val_files, val_dir), (test_files, test_dir)]:
+            class_save_dir = os.path.join(save_dir, sub_dir)
+            os.makedirs(class_save_dir, exist_ok=True)
+            for file in file_set:
+                shutil.copy(os.path.join(sub_dir_path, file), os.path.join(class_save_dir, file))
+
+
+
 def detect_and_annotate(image_path, output_dir, class_id, hands_processor, width, height):
     """Detect hands in an image and create YOLO-style annotations."""
     image = cv2.imread(image_path)
