@@ -12,9 +12,9 @@ def rename_files_in_folder(folder_path):
         for filename in os.listdir(folder_path):
             # Check if the filename starts with 'RE_'
             count+=1
-            if filename.startswith("RE_"):
+            if filename.startswith("NYA_"):
                 # Create the new filename
-                new_filename = "RI_" + filename[3:]
+                new_filename = "YAN_" + filename[4:]
 
                 # Get full paths for renaming
                 old_file_path = os.path.join(folder_path, filename)
@@ -22,7 +22,7 @@ def rename_files_in_folder(folder_path):
 
                 # Rename the file
                 os.rename(old_file_path, new_file_path)
-                print(f"Renamed: {filename} -> {new_filename}")
+                # print(f"Renamed: {filename} -> {new_filename}")
             else:
                 print(f"Skipped: {filename}")
 
@@ -33,5 +33,11 @@ def rename_files_in_folder(folder_path):
 
 
 # Example usage
-folder_path = "../Dataset/Images_20fr/NSL_Vowel/S2_NSL_Vowel_Unprepared_Dark_Cropped/S2_RE"  # Replace with your folder path
+folder_path = "../Dataset/Images_20fr/NSL_Consonant_Part_1_2/S12_NSL_Consonant_Prepared/S12_YAN"  # Replace with your folder path
+rename_files_in_folder(folder_path)
+folder_path = "../Dataset/Images_20fr/NSL_Consonant_Part_1_2/S11_NSL_Consonant_Prepared/S11_YAN"  # Replace with your folder path
+rename_files_in_folder(folder_path)
+folder_path = "../Dataset/Images_20fr/NSL_Consonant_Part_1_2/S10_NSL_Consonant_Prepared/S10_YAN"  # Replace with your folder path
+rename_files_in_folder(folder_path)
+folder_path = "../Dataset/Images_20fr/NSL_Consonant_Part_1_2/S8_NSL_Consonant_Prepared/S8_YAN"  # Replace with your folder path
 rename_files_in_folder(folder_path)

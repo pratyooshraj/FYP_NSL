@@ -24,9 +24,9 @@ def capture_images(output_dir, save_images=True):
     if not cap.isOpened():
         print("Error: Could not open the webcam.")
         return
-    gesture_keys = list(gesture_mapping_vowels.keys())
-    # gesture_keys = list(gesture_mapping_consonants.keys())
-    count_letter=0
+    # gesture_keys = list(gesture_mapping_vowels.keys())
+    gesture_keys = list(gesture_mapping_consonants.keys())
+    count_letter=-1
     letter_dir=os.path.join(output_dir,gesture_keys[count_letter])
     os.makedirs(letter_dir, exist_ok=True)
 
@@ -84,6 +84,6 @@ def capture_images(output_dir, save_images=True):
 
 # Example usage
 # change frame number to prevent overwriting of images
-output_dir = "../Dataset/captured_images/vowels"  # Directory to save images
+output_dir = "../Dataset"  # Directory to save images
 # output_dir = "../Dataset/captured_images/consonants"  # Directory to save images
 capture_images(output_dir)

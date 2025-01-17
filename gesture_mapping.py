@@ -50,6 +50,6 @@ gesture_mapping_consonants={
     'HA':45,
     'KSHA':46,
     'TRA':47,
-    'GYA':48#,
-    # 'SPACE':49
+    'GYA':48,
+    'SPACE':49
 }

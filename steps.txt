@@ -1,6 +1,7 @@
 1.0 run video_to_image: this converts all videos with single letters to folder of images--done
 1.1 run combo_video to image: this captures each letter from a single video and stores it in their respective directory as per user key input
 1.2 capture_image: capture images and store in directory of vowel name
-2.augment
+2   move files to respective locations
+3.1 augment
 3.annotate_hands_eff            nneds to run in portions causing prblms
 4. create yolo_data         don't think this runs properly
