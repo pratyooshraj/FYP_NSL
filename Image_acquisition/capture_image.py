@@ -24,9 +24,9 @@ def capture_images(output_dir, save_images=True):
     if not cap.isOpened():
         print("Error: Could not open the webcam.")
         return
-    gesture_keys = list(gesture_mapping_vowels.keys())
-    # gesture_keys = list(gesture_mapping_consonants.keys())
-    count_letter=0
+    # gesture_keys = list(gesture_mapping_vowels.keys())
+    gesture_keys = list(gesture_mapping_consonants.keys())
+    count_letter=-1
     letter_dir=os.path.join(output_dir,gesture_keys[count_letter])
     os.makedirs(letter_dir, exist_ok=True)
 
@@ -62,8 +62,8 @@ def capture_images(output_dir, save_images=True):
             print("Quitting...")
             break
         elif key == ord('s') and save_images:  # Save image
-            image_path = os.path.join(letter_dir, f"{gesture_keys[count_letter]}_frame_{frame_count:04d}.jpg")
-            cv2.imwrite(image_path, frame)
+            image_path = os.path.join(letter_dir, f"{gesture_keys[count_letter]}_blue_frame_{frame_count:04d}.jpg")
+            cv2.imwrite(image_path, cv2.flip(frame, 1))
             print(f"Image saved: {image_path}")
             frame_count += 1
         elif key == ord('n'):  # Move to next gesture
@@ -83,5 +83,7 @@ def capture_images(output_dir, save_images=True):
     # hands.close()
 
 # Example usage
-output_dir = "../Dataset/captured_images"  # Directory to save images
+# change frame number to prevent overwriting of images
+output_dir = "../Dataset"  # Directory to save images
+# output_dir = "../Dataset/captured_images/consonants"  # Directory to save images
 capture_images(output_dir)

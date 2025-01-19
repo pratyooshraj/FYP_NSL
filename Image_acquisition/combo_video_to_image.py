@@ -4,19 +4,15 @@ import uuid
 # import pygame
 import time
 # from moviepy import VideoFileClip
-from gesture_mapping import gesture_mapping_vowels
-
-# Extract the keys (gesture names) from the dictionary
-gesture_sequence = list(gesture_mapping_vowels.keys())
+from gesture_mapping import gesture_mapping_vowels, gesture_mapping_consonants
 
 # Path to save the captured images
-output_folder = 'captured_images'
-os.makedirs(output_folder, exist_ok=True)
-
+output_dir = '../Dataset/Images_20fr/NSL_Consonant_combo'
+os.makedirs(output_dir, exist_ok=True)
 # Load the video
-video_path = '../Dataset/Videos/NSL_Vowel_combo/S3_NSL_Vowel_Prepared/S3_NSL_Vowel_Prepared_Camera_all.mov'  # Update with the actual path to your video file
+video_path = '../Dataset/Videos/NSL_Consonant_combo/S14_NSL_Consonant_RealWorld/S14_NSL_Consonant.mov'  # Update with the actual path to your video file
 
-# # Use moviepy to extract audio from the video
+# # Use moviepy to extract audio from the videos
 # clip = VideoFileClip(video_path)
 # audio_path = '../extracted_audio.wav'
 # clip.audio.write_audiofile(audio_path)  # Extract and save audio as WAV file
@@ -38,14 +34,21 @@ if not cap.isOpened():
 fps = int(cap.get(cv2.CAP_PROP_FPS))
 total_frames = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
 
-# To keep track of the current gesture index
-gesture_index = 0
+# gesture_keys = list(gesture_mapping_vowels.keys())
+gesture_keys = list(gesture_mapping_consonants.keys())
+count_letter=0
+letter_dir=os.path.join(output_dir,gesture_keys[count_letter])
+os.makedirs(letter_dir, exist_ok=True)
 
 # Get the duration of the video
 # video_duration = cap.get(cv2.CAP_PROP_FRAME_COUNT) / fps  # Duration in seconds
 # # video_duration = clip.duration  # Duration in seconds
 # start_time = time.time()
+cv2.namedWindow('Video', cv2.WINDOW_NORMAL)
 
+# Maximize the window
+cv2.resizeWindow('Video', 720, 640)
+# cv2.setWindowProperty('Video', cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
 while True:
     ret, frame = cap.read()
     if not ret:
@@ -55,30 +58,37 @@ while True:
     # Display the current frame
     cv2.imshow('Video', frame)
 
-    # Adjust the delay to match the video's frame rate
-    key = cv2.waitKey(int(1000 / fps)) & 0xFF
+    key = cv2.waitKey(int(1000 / fps )) & 0xFF
 
     # Capture image when spacebar is pressed
-    if key == ord(' '):  # Spacebar key to capture image
-        if gesture_index < len(gesture_sequence):
-            # Get the current gesture from the sequence
-            gesture = gesture_sequence[gesture_index]
-
-            # Generate a unique UUID for the image filename
+    if key == ord('s'):
+        if count_letter < len(gesture_keys):
             unique_id = uuid.uuid4().hex  # Generate a unique ID
-            filename = f"{gesture}_{unique_id}.jpg"
-            file_path = os.path.join(output_folder, filename)
+            filename = f"{gesture_keys[count_letter]}_{unique_id}.jpg"
+            file_path = os.path.join(letter_dir, filename)
 
             # Save the captured frame as an image
             cv2.imwrite(file_path, frame)
-            print(f"Captured image saved as {file_path}")
+            print(f"{file_path} saved")
 
-            # Move to the next gesture in the sequence
-            gesture_index += 1
         else:
             print("All gestures have been captured.")
             break  # Stop if all gestures have been captured
+    elif key==ord('n'):
+        count_letter+=1
+        if count_letter < len(gesture_keys):
+            letter_dir = os.path.join(output_dir, gesture_keys[count_letter])
+            os.makedirs(letter_dir, exist_ok=True)
+            unique_id = uuid.uuid4().hex  # Generate a unique ID
+            filename = f"{gesture_keys[count_letter]}_{unique_id}.jpg"
+            file_path = os.path.join(letter_dir, filename)
 
+            # Save the captured frame as an image
+            cv2.imwrite(file_path, frame)
+            print(f"{file_path} saved")
+        else:
+            print("All gestures have been captured.")
+            break
     # Press 'q' to exit the video
     if key == ord('q'):
         print("Video playback terminated by user.")
