@@ -4,10 +4,8 @@ import cv2
 import numpy as np
 import random
 import os
-import torch
-import torchvision.transforms as T
-from torchvision.models.segmentation import deeplabv3_resnet50
-from torchvision import models
+
+from gesture_mapping import gesture_mapping_consonants, gesture_mapping_vowels
 
 
 def random_rotate(image, angle_range=(-25, 25)):
@@ -43,21 +41,13 @@ def random_scale(image, scale_range=(0.65, 1.35)):
         return cv2.copyMakeBorder(scaled_image, pad_y, pad_y, pad_x, pad_x, cv2.BORDER_REFLECT)
 
 
-def add_gaussian_blur(image, blur_limit=(3, 7)):
+def add_gaussian_blur(image, blur_limit=(1, 4)):
     """Apply Gaussian blur to the image."""
     kernel_size = random.choice(range(blur_limit[0], blur_limit[1] + 1, 2))  # Kernel size must be odd
     return cv2.GaussianBlur(image, (kernel_size, kernel_size), 0)
 
-
 def change_background_color(image, color_range=((0, 0, 0), (255, 255, 255))):
     """Change background color randomly."""
-    # mask = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-    # _, mask = cv2.threshold(mask, 1, 255, cv2.THRESH_BINARY_INV)
-    #
-    # background_color = tuple(random.randint(low, high) for low, high in zip(color_range[0], color_range[1]))
-    # background = np.full_like(image, background_color)
-    #
-    # return cv2.bitwise_or(background, background, mask=mask) | cv2.bitwise_and(image, image, mask=cv2.bitwise_not(mask))
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
     # Create a binary mask: Background pixels = 255, Foreground pixels = 0
@@ -81,8 +71,19 @@ def change_background_color(image, color_range=((0, 0, 0), (255, 255, 255))):
 
     return final_image
 
-def change_background_with_mediapipe(image,mp_selfie_segmentation, color_range=((0, 0, 0), (255, 255, 255))):
-    """Change the background color of an image using Mediapipe Selfie Segmentation."""
+
+def change_background_with_mediapipe(image, mp_selfie_segmentation, color_range=((0, 0, 0), (255, 255, 255))):
+    """
+    Change the background color of an image using Mediapipe Selfie Segmentation with random translucency.
+
+    Parameters:
+        image (numpy.ndarray): Input image (BGR).
+        mp_selfie_segmentation (module): Mediapipe Selfie Segmentation module.
+        color_range (tuple): Range of colors for random background ((low_B, low_G, low_R), (high_B, high_G, high_R)).
+
+    Returns:
+        numpy.ndarray: Image with the updated translucent background.
+    """
     # Initialize Mediapipe Selfie Segmentation
     with mp_selfie_segmentation.SelfieSegmentation(model_selection=1) as segmenter:
         # Convert the image to RGB (required by Mediapipe)
@@ -96,71 +97,39 @@ def change_background_with_mediapipe(image,mp_selfie_segmentation, color_range=(
         binary_mask = (mask > 0.5).astype(np.uint8) * 255  # Foreground = 255, Background = 0
 
         # Generate a random background color
+
         background_color = tuple(random.randint(low, high) for low, high in zip(color_range[0], color_range[1]))
-        background = np.full_like(image, background_color)
+        solid_background = np.full_like(image, background_color)
+
+        # Generate a random alpha value between 0.5 and 0.7 for translucency
+        alpha = random.uniform(0.5, 0.7)
+
+        # Apply translucency to the background
+        translucent_background = cv2.addWeighted(solid_background, alpha, image, 1 - alpha, 0)
 
         # Apply the masks to combine the foreground with the new background
         foreground = cv2.bitwise_and(image, image, mask=binary_mask)  # Keep the person
         inverted_mask = cv2.bitwise_not(binary_mask)  # Invert the mask
-        updated_background = cv2.bitwise_and(background, background, mask=inverted_mask)  # New background
+        updated_background = cv2.bitwise_and(translucent_background, translucent_background, mask=inverted_mask)  # New background
 
-        # Combine the foreground and the new background
+        # Combine the foreground and the new translucent background
         final_image = cv2.add(foreground, updated_background)
         return final_image
-
-def change_background_with_deeplab(image, model, color_range=((0, 0, 0), (255, 255, 255))):
-    """Change the background color using DeepLabV3."""
-    # Load the pre-trained DeepLabV3 model
-
-    model.eval()
-
-    # Preprocess the image for the model
-    original_height, original_width = image.shape[:2]
-    transform = T.Compose([
-        T.ToPILImage(),
-        T.Resize((512, 512)),  # Resize for the model
-        T.ToTensor(),
-        T.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
-    ])
-    input_tensor = transform(image).unsqueeze(0)
-
-    # Perform segmentation
-    with torch.no_grad():
-        output = model(input_tensor)['out'][0]
-    mask = output.argmax(0).byte().cpu().numpy()  # Generate mask
-
-    # Resize mask back to the original dimensions
-    person_mask = cv2.resize(mask, (original_width, original_height), interpolation=cv2.INTER_NEAREST)
-    person_mask = (person_mask == 15).astype(np.uint8) * 255  # Class 15 corresponds to 'person'
-
-    # Generate a random background color
-    background_color = tuple(random.randint(low, high) for low, high in zip(color_range[0], color_range[1]))
-    background = np.full_like(image, background_color)
-
-    # Apply masks to combine the foreground and the new background
-    foreground = cv2.bitwise_and(image, image, mask=person_mask)  # Keep the person
-    inverted_mask = cv2.bitwise_not(person_mask)  # Invert the mask
-    updated_background = cv2.bitwise_and(background, background, mask=inverted_mask)  # New background
-
-    # Combine the foreground and background
-    final_image = cv2.add(foreground, updated_background)
-    return final_image
 
 
 def augment_image(image):
     """Apply all augmentations to the image."""
     image = random_rotate(image)
+    image = change_background_color(image)
     image = adjust_brightness_contrast(image)
     image = random_scale(image)
     image = add_gaussian_blur(image)
-    image = change_background_color(image)
     return image
 
 
 def augment_images(input_dir, output_dir):
     """Apply augmentation to all images in the input directory."""
-    model = deeplabv3_resnet50(pretrained=True)
-    # model=models.resnet18(pretrained=True)
+    mp_selfie_segmentation = mp.solutions.selfie_segmentation
     for root, _, files in os.walk(input_dir):
         relative_path = os.path.relpath(root, input_dir)
         save_dir = os.path.join(output_dir, relative_path)
@@ -184,8 +153,7 @@ def augment_images(input_dir, output_dir):
                 scale_image=random_scale(image)
                 # bright_image=adjust_brightness_contrast(image)
                 # blur_image = add_gaussian_blur(image)
-                # bg_changed_image = change_background_with_mediapipe(image,mp_selfie_segmentation, color_range=((100, 150, 200), (200, 250, 255)))
-                bg_changed_image = change_background_with_deeplab(image,model, color_range=((50, 100, 150), (200, 250, 255)))
+                bg_changed_image = change_background_with_mediapipe(image,mp_selfie_segmentation)
 
                 # Save the augmented images
                 file_name, file_ext = os.path.splitext(file)
@@ -211,14 +179,15 @@ def augment_images(input_dir, output_dir):
                 cv2.imwrite(scale_save_path, scale_image)
                 # cv2.imwrite(br_save_path, bright_image)
                 print(f"Processed and saved: {save_path}")
-                # print(f"Processed and saved: {blur_save_path}")
-                print(f"Processed and saved: {bg_save_path}")
 
 
 if __name__ == "__main__":
     # Example usage
-    input_dir = "Dataset/Images3"
-    output_dir = "Dataset/Imagesa"
-    # mp_selfie_segmentation = mp.solutions.selfie_segmentation
-    # augment_images(input_dir, output_dir, mp_selfie_segmentation)
-    augment_images(input_dir, output_dir)
+    letters = list(gesture_mapping_vowels.keys())
+    # letters = list(gesture_mapping_consonants.keys())
+
+    for letter in letters:
+        print(f"Folder for {letter}...")
+        input_dir = f"../Dataset/Images_20_final/NSL_Vowels_combo/{letter}"
+        output_dir = f"../Dataset/augmented_images2/NSL_Vowels_combo/{letter}"
+        augment_images(input_dir, output_dir)

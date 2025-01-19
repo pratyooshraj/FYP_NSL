@@ -3,3 +3,5 @@ Dataset/
 **/__pycache__/
 **/.idea/
 *.wav
+*.txt
+.xlsx

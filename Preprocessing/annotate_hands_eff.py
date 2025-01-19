@@ -6,29 +6,6 @@ import shutil
 from gesture_mapping import gesture_mapping_vowels
 
 
-def split_data(src_dir, dest_dir, train_size=0.7):
-    """Split the dataset into train and test sets, maintaining class structure."""
-    train_dir = os.path.join(dest_dir, 'train', 'train_images')
-    test_dir = os.path.join(dest_dir, 'test', 'test_images')
-    os.makedirs(train_dir, exist_ok=True)
-    os.makedirs(test_dir, exist_ok=True)
-
-    for sub_dir in os.listdir(src_dir):
-        sub_dir_path = os.path.join(src_dir, sub_dir)
-
-        if not os.path.isdir(sub_dir_path):
-            continue
-
-        image_files = [f for f in os.listdir(sub_dir_path) if f.lower().endswith(('.jpg', '.png', '.jpeg'))]
-        train_files, test_files = train_test_split(image_files, train_size=train_size, random_state=42)
-
-        for file_set, save_dir in [(train_files, train_dir), (test_files, test_dir)]:
-            class_save_dir = os.path.join(save_dir, sub_dir)
-            os.makedirs(class_save_dir, exist_ok=True)
-            for file in file_set:
-                shutil.copy(os.path.join(sub_dir_path, file), os.path.join(class_save_dir, file))
-
-
 def detect_and_annotate(image_path, output_dir, class_id, hands_processor, width, height):
     """Detect hands in an image and create YOLO-style annotations."""
     image = cv2.imread(image_path)
@@ -47,7 +24,7 @@ def detect_and_annotate(image_path, output_dir, class_id, hands_processor, width
         print(f"No hands detected in {image_path}")
 
         # Define the target directory for images with no hands detected
-        hands_not_found_dir = os.path.join("dataset", "hands_not_found")
+        hands_not_found_dir = os.path.join("../Dataset", "hands_not_found")
         os.makedirs(hands_not_found_dir, exist_ok=True)  # Ensure the directory exists
 
         # Move the image to the target directory
@@ -80,15 +57,15 @@ def detect_and_annotate(image_path, output_dir, class_id, hands_processor, width
 def annotate_images(input_dir, output_dir):
     """Annotate all images in a directory with YOLO-style annotations."""
     mp_hands = mp.solutions.hands
-    hands = mp_hands.Hands(static_image_mode=True, max_num_hands=2, min_detection_confidence=0.8)
+    hands = mp_hands.Hands(static_image_mode=True, max_num_hands=1, min_detection_confidence=0.8)
 
     for sub_dir in os.listdir(input_dir):
         sub_dir_path = os.path.join(input_dir, sub_dir)
 
         if not os.path.isdir(sub_dir_path):
             continue
-
-        class_id = gesture_mapping_vowels.get(sub_dir.split("_", 1)[1])
+        print(f"Annotating {sub_dir}")
+        class_id = gesture_mapping_vowels.get(sub_dir)
         if class_id is None:
             print(f"Warning: Gesture '{sub_dir}' not found in mapping. Skipping.")
             continue
@@ -111,12 +88,8 @@ def annotate_images(input_dir, output_dir):
 
 
 if __name__ == "__main__":
-    src_dir = "Dataset/Images/NSL_Vowel/s1_nsl_vowel_unprepared_bright_2"
-    dest_dir = "Dataset/YOLO_Data_ver5_2"
-
-    # Split the data
-    split_data(src_dir, dest_dir)
-
+    src_dir = "../Dataset/YOLO_Data_prd_ver1"
+    dest_dir = "../Dataset/YOLO_Data_prd_ver1"
     # Annotate training and testing data
-    annotate_images(os.path.join(dest_dir, 'train', 'train_images'), os.path.join(dest_dir, 'train', 'train_annotations'))
+    # annotate_images(os.path.join(dest_dir, 'train', 'train_images'), os.path.join(dest_dir, 'train', 'train_annotations'))
     annotate_images(os.path.join(dest_dir, 'test', 'test_images'), os.path.join(dest_dir, 'test', 'test_annotations'))
