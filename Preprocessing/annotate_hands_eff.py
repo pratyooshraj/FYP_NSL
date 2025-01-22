@@ -1,9 +1,7 @@
 import os
 import cv2
 import mediapipe as mp
-from sklearn.model_selection import train_test_split
-import shutil
-from gesture_mapping import gesture_mapping_vowels
+from gesture_mapping import gesture_mapping_vowels, gesture_mapping_consonants
 
 
 def detect_and_annotate(image_path, output_dir, class_id, hands_processor, width, height):
@@ -24,7 +22,7 @@ def detect_and_annotate(image_path, output_dir, class_id, hands_processor, width
         print(f"No hands detected in {image_path}")
 
         # Define the target directory for images with no hands detected
-        hands_not_found_dir = os.path.join("../Dataset", "hands_not_found")
+        hands_not_found_dir = os.path.join("../Dataset", "hands_not_found_cons_3_train")
         os.makedirs(hands_not_found_dir, exist_ok=True)  # Ensure the directory exists
 
         # Move the image to the target directory
@@ -65,7 +63,8 @@ def annotate_images(input_dir, output_dir):
         if not os.path.isdir(sub_dir_path):
             continue
         print(f"Annotating {sub_dir}")
-        class_id = gesture_mapping_vowels.get(sub_dir)
+        # class_id = gesture_mapping_vowels.get(sub_dir)
+        class_id = gesture_mapping_consonants.get(sub_dir)
         if class_id is None:
             print(f"Warning: Gesture '{sub_dir}' not found in mapping. Skipping.")
             continue
@@ -88,8 +87,13 @@ def annotate_images(input_dir, output_dir):
 
 
 if __name__ == "__main__":
-    src_dir = "../Dataset/YOLO_Data_prd_ver1"
-    dest_dir = "../Dataset/YOLO_Data_prd_ver1"
+    src_dir = "../Dataset/YOLO_Data_prd_ver1_cons_3"
+    dest_dir = "../Dataset/YOLO_Data_prd_ver1_cons_3"
     # Annotate training and testing data
-    # annotate_images(os.path.join(dest_dir, 'train', 'train_images'), os.path.join(dest_dir, 'train', 'train_annotations'))
-    annotate_images(os.path.join(dest_dir, 'test', 'test_images'), os.path.join(dest_dir, 'test', 'test_annotations'))
+
+
+    # remember to change folder for hands not found
+    annotate_images(os.path.join(dest_dir, 'train', 'train_images'), os.path.join(dest_dir, 'train', 'train_annotations'))
+    # annotate_images(os.path.join(dest_dir, 'test', 'test_images'), os.path.join(dest_dir, 'test', 'test_annotations'))
+    # annotate_images(os.path.join(dest_dir, 'val', 'val_images'), os.path.join(dest_dir, 'val', 'val_annotations'))
+    # test,val  done for ver1cons3 train remaining

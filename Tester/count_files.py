@@ -1,6 +1,6 @@
 import os
 
-def count_files_in_folders(folder_path, output_file="../Dataset/aug_img_count.txt"):
+def count_files_in_folders(folder_path, output_file="../Dataset/train_count.txt"):
     """
     Count the number of subfolders and files in each subfolder of the given folder.
     Append the results to a text file.
@@ -44,26 +44,53 @@ def count_files_in_folders(folder_path, output_file="../Dataset/aug_img_count.tx
 
 
 # Example usage
-with open("../Dataset/aug_img_count.txt", "a") as file:
-    file.write("Captured Images" + "\n")
-folder_name = '../Dataset/augmented_images1/vowels'
-count_files_in_folders(folder_name)
-folder_name = '../Dataset/augmented_images1/consonants'
-count_files_in_folders(folder_name)
+# with open("../Dataset/aug_img_count.txt", "a") as file:
+#     file.write("Captured Images" + "\n")
+# folder_name = '../Dataset/augmented_images1/vowels'
+# count_files_in_folders(folder_name)
+# folder_name = '../Dataset/augmented_images1/consonants'
+# count_files_in_folders(folder_name)
+#
+# with open("../Dataset/aug_img_count.txt", "a") as file:
+#     file.write("\n\n\n"+"Video_to_img" + "\n")
+# folder_name = '../Dataset/augmented_images2/NSL_Vowels'
+# count_files_in_folders(folder_name)
+# folder_name = '../Dataset/augmented_images2/NSL_Consonant_Part_1'
+# count_files_in_folders(folder_name)
+# folder_name = '../Dataset/augmented_images2/NSL_Consonant_Part_1_2'
+# count_files_in_folders(folder_name)
+#
+# with open("../Dataset/aug_img_count.txt", "a") as file:
+#     file.write("\n\n\n\n"+"combo" + "\n\n")
+# folder_name = '../Dataset/augmented_images2/NSL_Consonant_combo'
+# count_files_in_folders(folder_name)
+# folder_name = '../Dataset/augmented_images2/NSL_Vowels_combo'
+# count_files_in_folders(folder_name)
 
-with open("../Dataset/aug_img_count.txt", "a") as file:
-    file.write("\n\n\n"+"Video_to_img" + "\n")
-folder_name = '../Dataset/augmented_images2/NSL_Vowels'
-count_files_in_folders(folder_name)
-folder_name = '../Dataset/augmented_images2/NSL_Consonant_Part_1'
-count_files_in_folders(folder_name)
-folder_name = '../Dataset/augmented_images2/NSL_Consonant_Part_1_2'
-count_files_in_folders(folder_name)
-
-with open("../Dataset/aug_img_count.txt", "a") as file:
+with open("../Dataset/train_count.txt", "a") as file:
     file.write("\n\n\n\n"+"combo" + "\n\n")
-folder_name = '../Dataset/augmented_images2/NSL_Consonant_combo'
+folder_name = '../Dataset/YOLO_Data_prd_ver1_cons/test/test_images'
 count_files_in_folders(folder_name)
-folder_name = '../Dataset/augmented_images2/NSL_Vowels_combo'
+folder_name = '../Dataset/YOLO_Data_prd_ver1_cons/train/train_images'
+count_files_in_folders(folder_name)
+folder_name = '../Dataset/YOLO_Data_prd_ver1_cons/val/val_images'
+count_files_in_folders(folder_name)
+
+with open("../Dataset/train_count.txt", "a") as file:
+    file.write("\n\n\n\n"+"combo" + "\n\n")
+folder_name = '../Dataset/YOLO_Data_prd_ver1_cons_2/test/test_images'
+count_files_in_folders(folder_name)
+folder_name = '../Dataset/YOLO_Data_prd_ver1_cons_2/train/train_images'
+count_files_in_folders(folder_name)
+folder_name = '../Dataset/YOLO_Data_prd_ver1_cons_2/val/val_images'
+count_files_in_folders(folder_name)
+
+with open("../Dataset/train_count.txt", "a") as file:
+    file.write("\n\n\n\n"+"combo" + "\n\n")
+folder_name = '../Dataset/YOLO_Data_prd_ver1_cons_3/test/test_images'
+count_files_in_folders(folder_name)
+folder_name = '../Dataset/YOLO_Data_prd_ver1_cons_3/train/train_images'
+count_files_in_folders(folder_name)
+folder_name = '../Dataset/YOLO_Data_prd_ver1_cons_3/val/val_images'
 count_files_in_folders(folder_name)
 
