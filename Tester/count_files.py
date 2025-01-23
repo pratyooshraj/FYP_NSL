@@ -1,6 +1,6 @@
 import os
 
-def count_files_in_folders(folder_path, output_file="../Dataset/train_count.txt"):
+def count_files_in_folders(folder_path, output_file="../Dataset/train_count_vowels.txt"):
     """
     Count the number of subfolders and files in each subfolder of the given folder.
     Append the results to a text file.
@@ -67,30 +67,30 @@ def count_files_in_folders(folder_path, output_file="../Dataset/train_count.txt"
 # folder_name = '../Dataset/augmented_images2/NSL_Vowels_combo'
 # count_files_in_folders(folder_name)
 
-with open("../Dataset/train_count.txt", "a") as file:
-    file.write("\n\n\n\n"+"combo" + "\n\n")
-folder_name = '../Dataset/YOLO_Data_prd_ver1_cons/test/test_images'
-count_files_in_folders(folder_name)
-folder_name = '../Dataset/YOLO_Data_prd_ver1_cons/train/train_images'
-count_files_in_folders(folder_name)
-folder_name = '../Dataset/YOLO_Data_prd_ver1_cons/val/val_images'
-count_files_in_folders(folder_name)
+# with open("../Dataset/train_count_801010.txt", "a") as file:
+#     file.write("\n\n\n\n"+"combo" + "\n\n")
+# folder_name = '../Dataset/YOLO_Data_prd_ver1_cons/test/test_images'
+# count_files_in_folders(folder_name)
+# folder_name = '../Dataset/YOLO_Data_prd_ver1_cons/train/train_images'
+# count_files_in_folders(folder_name)
+# folder_name = '../Dataset/YOLO_Data_prd_ver1_cons/val/val_images'
+# count_files_in_folders(folder_name)
+#
+# with open("../Dataset/train_count_801010.txt", "a") as file:
+#     file.write("\n\n\n\n"+"combo" + "\n\n")
+# folder_name = '../Dataset/YOLO_Data_prd_ver1_cons_2/test/test_images'
+# count_files_in_folders(folder_name)
+# folder_name = '../Dataset/YOLO_Data_prd_ver1_cons_2/train/train_images'
+# count_files_in_folders(folder_name)
+# folder_name = '../Dataset/YOLO_Data_prd_ver1_cons_2/val/val_images'
+# count_files_in_folders(folder_name)
 
-with open("../Dataset/train_count.txt", "a") as file:
-    file.write("\n\n\n\n"+"combo" + "\n\n")
-folder_name = '../Dataset/YOLO_Data_prd_ver1_cons_2/test/test_images'
+with open("../Dataset/train_count_vowels2.txt", "a") as file:
+    file.write("combo" + "\n\n")
+folder_name = '../Dataset/YOLO_Data_prd_ver1/YOLO_Data_prd_ver1/train/train_images'
 count_files_in_folders(folder_name)
-folder_name = '../Dataset/YOLO_Data_prd_ver1_cons_2/train/train_images'
+folder_name = '../Dataset/YOLO_Data_prd_ver1/YOLO_Data_prd_ver1/test/test_images'
 count_files_in_folders(folder_name)
-folder_name = '../Dataset/YOLO_Data_prd_ver1_cons_2/val/val_images'
-count_files_in_folders(folder_name)
-
-with open("../Dataset/train_count.txt", "a") as file:
-    file.write("\n\n\n\n"+"combo" + "\n\n")
-folder_name = '../Dataset/YOLO_Data_prd_ver1_cons_3/test/test_images'
-count_files_in_folders(folder_name)
-folder_name = '../Dataset/YOLO_Data_prd_ver1_cons_3/train/train_images'
-count_files_in_folders(folder_name)
-folder_name = '../Dataset/YOLO_Data_prd_ver1_cons_3/val/val_images'
+folder_name = '../Dataset/YOLO_Data_prd_ver1/YOLO_Data_prd_ver1/val/val_images'
 count_files_in_folders(folder_name)
 

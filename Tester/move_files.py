@@ -1,6 +1,6 @@
 import os
 import shutil
-from gesture_mapping import gesture_mapping_consonants
+from gesture_mapping import gesture_mapping_consonants, gesture_mapping_vowels
 
 
 def move_files(source_dir, destination_dir):
@@ -58,13 +58,13 @@ def move_files(source_dir, destination_dir):
 
 
 # Example usage
-letters = list(gesture_mapping_consonants.keys())
+letters = list(gesture_mapping_vowels.keys())
 total = 0
 
 for letter in letters:
     print(f"Moving {letter}...")
-    source = f"../Dataset/Images_20fr/NSL_Consonant_Part_1_2/S12_NSL_Consonant_Prepared/S12_{letter}"
-    destination = f"../Dataset/Images_20fr/NSL_Consonant_Part_1_2/S3_NSL_Consonant_Prepared_Cropped/S3_{letter}"
+    source = f"../Dataset/YOLO_Data_prd_ver1/YOLO_Data_prd_ver1/test/test_annotations/{letter}"
+    destination = f"../Dataset/YOLO_Data_prd_ver1/YOLO_Data_prd_ver1/train/train_annotations/{letter}"
 
     total += move_files(source, destination)
 
