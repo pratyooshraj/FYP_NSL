@@ -5,8 +5,8 @@ from gesture_mapping import gesture_mapping_vowels, gesture_mapping_consonants
 
 def move_yolo_files(labels_dir):
     # Iterate through each subdirectory in the labels folder
-    for folder_name in gesture_mapping_vowels.keys():
-    # for folder_name in gesture_mapping_consonants.keys():
+    # for folder_name in gesture_mapping_vowels.keys():
+    for folder_name in gesture_mapping_consonants.keys():
         folder_path = os.path.join(labels_dir, folder_name)
         if os.path.isdir(folder_path):
             # Move all files from the subdirectory to the main labels directory
@@ -21,5 +21,15 @@ def move_yolo_files(labels_dir):
     print("Files moved and empty subdirectories deleted successfully.")
 
 
-dir_name = '../Dataset/YOLO_Data_prd_ver1/test/test_annotations'
+dir_name = '../Dataset/YOLO_Data_prd_ver1_cons_3/val/val_images'
+move_yolo_files(dir_name)
+dir_name = '../Dataset/YOLO_Data_prd_ver1_cons_3/val/val_annotations'
+move_yolo_files(dir_name)
+dir_name = '../Dataset/YOLO_Data_prd_ver1_cons_3/test/test_images'
+move_yolo_files(dir_name)
+dir_name = '../Dataset/YOLO_Data_prd_ver1_cons_3/test/test_annotations'
+move_yolo_files(dir_name)
+dir_name = '../Dataset/YOLO_Data_prd_ver1_cons_3/train/train_images'
+move_yolo_files(dir_name)
+dir_name = '../Dataset/YOLO_Data_prd_ver1_cons_3/train/train_annotations'
 move_yolo_files(dir_name)
