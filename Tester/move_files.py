@@ -58,13 +58,13 @@ def move_files(source_dir, destination_dir):
 
 
 # Example usage
-letters = list(gesture_mapping_vowels.keys())
+letters = list(gesture_mapping_consonants.keys())
 total = 0
 
 for letter in letters:
     print(f"Moving {letter}...")
-    source = f"../Dataset/YOLO_Data_prd_ver1/YOLO_Data_prd_ver1/test/test_annotations/{letter}"
-    destination = f"../Dataset/YOLO_Data_prd_ver1/YOLO_Data_prd_ver1/train/train_annotations/{letter}"
+    source = f"../Dataset/YOLO_Data_prd_ver1_cons_3/test/test_images/{letter}"
+    destination = f"../Dataset/YOLO_Data_prd_ver1_cons_3/val/val_images/{letter}"
 
     total += move_files(source, destination)
 

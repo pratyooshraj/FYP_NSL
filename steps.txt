@@ -15,4 +15,8 @@ Step 4: Create YOLO data
 4.2 create a master folder which is divided into train test val folder, each folders are then further divided to labels and annotations folder
 4.3 create yaml file
 
+Step 5: Train in google colab
+
+Step 6:
+wanddb_api_key: 0b0433d16e3965090679c45a606f4d95cfc010d8
 4. create yolo_data         don't think this runs properly

@@ -1,3 +1,4 @@
+# to move images/annotations from sub-directory of letter to train/test/val folder
 import os
 import shutil
 
@@ -21,15 +22,15 @@ def move_yolo_files(labels_dir):
     print("Files moved and empty subdirectories deleted successfully.")
 
 
-dir_name = '../Dataset/YOLO_Data_prd_ver1_cons_3/val/val_images'
+dir_name = '../Dataset/YOLO_Data_prd_ver1_cons/val/train_annotations'
 move_yolo_files(dir_name)
-dir_name = '../Dataset/YOLO_Data_prd_ver1_cons_3/val/val_annotations'
+dir_name = '../Dataset/YOLO_Data_prd_ver1_cons/val/train_images'
 move_yolo_files(dir_name)
-dir_name = '../Dataset/YOLO_Data_prd_ver1_cons_3/test/test_images'
-move_yolo_files(dir_name)
-dir_name = '../Dataset/YOLO_Data_prd_ver1_cons_3/test/test_annotations'
-move_yolo_files(dir_name)
-dir_name = '../Dataset/YOLO_Data_prd_ver1_cons_3/train/train_images'
-move_yolo_files(dir_name)
-dir_name = '../Dataset/YOLO_Data_prd_ver1_cons_3/train/train_annotations'
-move_yolo_files(dir_name)
+# dir_name = '../Dataset/YOLO_Data_prd_ver1_cons/train/train_annotations'
+# move_yolo_files(dir_name)
+# dir_name = '../Dataset/YOLO_Data_prd_ver1_cons/train/train_images'
+# move_yolo_files(dir_name)
+# dir_name = '../Dataset/YOLO_Data_prd_ver1_cons/val/val_annotations'
+# move_yolo_files(dir_name)
+# dir_name = '../Dataset/YOLO_Data_prd_ver1_cons/val/val_images'
+# move_yolo_files(dir_name)

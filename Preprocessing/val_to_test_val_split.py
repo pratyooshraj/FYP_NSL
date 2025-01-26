@@ -32,7 +32,7 @@ def split_val_to_val_test(val_image_dir, val_annotation_dir, test_image_dir, tes
         image_files = [f for f in os.listdir(class_val_image_path) if f.lower().endswith(('.jpg', '.png', '.jpeg'))]
 
         # Split image files into 50% val and 50% test
-        val_files, test_files = train_test_split(image_files, test_size=0.5, random_state=42)
+        val_files, test_files = train_test_split(image_files, test_size=0.1, random_state=42)
 
         # Move images and corresponding annotation files
         for file_set, (image_dest, annotation_dest) in [
@@ -59,10 +59,16 @@ def split_val_to_val_test(val_image_dir, val_annotation_dir, test_image_dir, tes
         print(f"Split completed for class: {class_folder}")
 
 # Example usage
-val_image_directory = "../Dataset/YOLO_Data_prd_ver1/YOLO_Data_prd_ver1/val/val_images"  # Path to val images
-val_annotation_directory = "../Dataset/YOLO_Data_prd_ver1/YOLO_Data_prd_ver1/val/val_annotations"  # Path to val annotations
-test_image_directory = "../Dataset/YOLO_Data_prd_ver1/YOLO_Data_prd_ver1/test/test_images"  # Path to test images
-test_annotation_directory = "../Dataset/YOLO_Data_prd_ver1/YOLO_Data_prd_ver1/test/test_annotations"  # Path to test annotations
+# val_image_directory = "../Dataset/YOLO_Data_prd_ver1_cons_2/train/train_images"  # Path to val images
+# val_annotation_directory = "../Dataset/YOLO_Data_prd_ver1_cons_2/train/train_annotations"  # Path to val annotations
+# test_image_directory = "../Dataset/YOLO_Data_prd_ver1_cons_2/train1/train_images"  # Path to test images
+# test_annotation_directory = "../Dataset/YOLO_Data_prd_ver1_cons_2/train1/train_annotations"  # Path to test annotations
+
+val_image_directory = "../Dataset/YOLO_Data_prd_ver1_cons/train1/train_images"  # Path to val images
+val_annotation_directory = "../Dataset/YOLO_Data_prd_ver1_cons/train1/train_annotations"  # Path to val annotations
+test_image_directory = "../Dataset/YOLO_Data_prd_ver1_cons_2/train111/test11_images"  # Path to test images
+test_annotation_directory = "../Dataset/YOLO_Data_prd_ver1_cons_2/train111/test11_annotations"  # Path to test annotations
 
 split_val_to_val_test(val_image_directory, val_annotation_directory, test_image_directory, test_annotation_directory)
+
 
