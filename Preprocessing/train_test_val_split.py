@@ -2,7 +2,7 @@ import os
 from sklearn.model_selection import train_test_split
 import shutil
 
-def split_data(src_dir, dest_dir, train_size=0.7, val_size=0.2, test_size=0.1):
+def split_data(src_dir, dest_dir, train_size=0.8, val_size=0.1, test_size=0.1):
     """Split the dataset into train, validation, and test sets, maintaining class structure."""
 
     # Validate that the sum of train_size, val_size, and test_size is 1
@@ -85,6 +85,6 @@ if __name__ == "__main__":
     src_dir = "../Dataset/augmented_images2/NSL_Consonant_Part_1_2"
     dest_dir = "../Dataset/YOLO_Data_prd_ver1_cons_3"
     # Split the data
-    split_data(src_dir, dest_dir, 0.65, 0.2, 0.15)
+    split_data(src_dir, dest_dir, 0.8, 0.1, 0.1)
     print("cons2 split done")
 

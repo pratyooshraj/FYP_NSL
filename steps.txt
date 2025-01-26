@@ -3,12 +3,20 @@ Step 1: Image acquisition
 1.1 run combo_video to image: this captures each letter from a single video and stores it in their respective directory as per user key input
 1.2 capture_image: capture images and store in directory of vowel name
 
-2   move files to respective locations
+Step 2: Move files to respective locations using move_files.py
 
 Step 3: Preprocessing
 3.1 augment
 3.2 train_test_val_split
-3.annotate_hands_eff            nneds to run in portions causing prblms
+3.3 annotate_hands_eff: needs to be done in batches, memory and cpu intensive
 
+Step 4: Create YOLO data
+4.1 run move_yolo_files: to move images/annotations from sub-directory of letter to train/test/val folder
+4.2 create a master folder which is divided into train test val folder, each folders are then further divided to labels and annotations folder
+4.3 create yaml file
 
+Step 5: Train in google colab
+
+Step 6:
+wanddb_api_key: 0b0433d16e3965090679c45a606f4d95cfc010d8
 4. create yolo_data         don't think this runs properly

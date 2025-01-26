@@ -53,3 +53,46 @@ gesture_mapping_consonants={
     'GYA':48,
     'SPACE':49
 }
+
+two_gesture_mapping_consonants={
+    'KA':0,
+    'KHA':1,
+    'GA':2,
+    'GHA':3,
+    'NGA':4,
+    'CHA':5,
+    'CHHA':6,
+    'JA':7,
+    'JHA':8,
+    'YAN':9,
+    'TA':10,
+    'THA':11,
+    'DA':12,
+    'DHA':13,
+    'NA':14,
+    'TAA':15,
+    'THAA':16,
+    'DAA':17,
+    'DHAA':18,
+    'NAA':19,
+    'PA':20,
+    'PHA':21,
+    'BA':22,
+    'BHA':23,
+    'MA':24,
+    'YA':25,
+    'RA':26,
+    'LA':27,
+    'WA':28,
+    'T_SHA':29,
+    'M_SHA':30,
+    'D_SHA':31,
+    'HA':32,
+    'KSHA':33,
+    'TRA':34,
+    'GYA':35,
+    'SPACE':36
+}
+
+for key, value in two_gesture_mapping_consonants.items():
+    print(f"{value}: {key}")
