@@ -5,7 +5,14 @@ from PIL import Image, ImageTk
 import datetime
 from gtts import gTTS
 import os
-
+import torch
+import time
+from collections import defaultdict
+import pathlib
+from pathlib import Path
+pathlib.PosixPath = pathlib.WindowsPath
+import warnings
+warnings.simplefilter("ignore", category=FutureWarning)
 from gesture_mapping import consonants_mapping, vowels_mapping, consonant_vowel_matrix
 
 
