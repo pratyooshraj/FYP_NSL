@@ -15,7 +15,7 @@ class SignAlphabetApp:
         self.root.title("Nepali Sign Alphabet Detection")
         self.root.geometry("900x700")  # Adjusted size
         self.root.resizable(False, False)
-# hjkljk
+
         self.text_box = tk.Text(root, height=1, width=43, wrap="word", font=("Noto Sans Devanagari", 25))
         self.text_box.grid(row=0, column=0, columnspan=3, padx=10, pady=10)
         self.text_box.insert("1.0", "नेपाली भाषा समर्थन गरिएको छ। हरइयओ कआअपई")
