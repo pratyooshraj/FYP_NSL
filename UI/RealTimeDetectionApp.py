@@ -14,7 +14,7 @@ class SignAlphabetApp:
         self.root = root
         self.root.title("Nepali Sign Alphabet Detection")
         self.root.geometry("900x700")  # Adjusted size
-        self.root.resizable(False, False)
+        self.root.resizable(True, True)
 
         self.text_box = tk.Text(root, height=1, width=43, wrap="word", font=("Noto Sans Devanagari", 25))
         self.text_box.grid(row=0, column=0, columnspan=3, padx=10, pady=10)
