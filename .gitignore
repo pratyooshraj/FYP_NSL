@@ -2,6 +2,8 @@
 Dataset/
 **/__pycache__/
 **/.idea/
+yolov5/
 *.wav
-*.txt
-.xlsx
+recognized_text.txt
+*.xlsx
+*.mp3
