@@ -5,7 +5,14 @@ from PIL import Image, ImageTk
 import datetime
 from gtts import gTTS
 import os
-
+import torch
+import time
+from collections import defaultdict
+import pathlib
+from pathlib import Path
+pathlib.PosixPath = pathlib.WindowsPath
+import warnings
+warnings.simplefilter("ignore", category=FutureWarning)
 from gesture_mapping import consonants_mapping, vowels_mapping, consonant_vowel_matrix
 
 
@@ -15,7 +22,6 @@ class SignAlphabetApp:
         self.root.title("Nepali Sign Alphabet Detection")
         self.root.geometry("900x700")  # Adjusted size
         self.root.resizable(False, False)
-        # jhhjlk
 
         self.text_box = tk.Text(root, height=1, width=43, wrap="word", font=("Noto Sans Devanagari", 25))
         self.text_box.grid(row=0, column=0, columnspan=3, padx=10, pady=10)
