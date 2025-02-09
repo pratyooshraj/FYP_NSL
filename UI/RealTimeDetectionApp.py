@@ -20,8 +20,9 @@ class SignAlphabetApp:
         self.text_box = tk.Text(root, height=1, width=43, wrap="word", font=("Noto Sans Devanagari", 25))
         self.text_box.grid(row=0, column=0, columnspan=3, padx=10, pady=10)
         self.text_box.insert("1.0", "नेपाली भाषा समर्थन गरिएको छ। हरइयओ कआअपई")
+        # self.text_box.insert("1.0", "नेपाली भाषा")
         # self.text_box.insert("1.0", "हरइयओ")
-        # self.text_box.insert("1.0", "कआअपई")
+        # self.text_box.insert("1.0", "अ")
         # Clear Button
         self.clear_button = tk.Button(root, text="Clear", command=self.clear_textbox, font=("Arial", 14))
         self.clear_button.grid(row=0, column=3, padx=10, pady=10, sticky="e")
