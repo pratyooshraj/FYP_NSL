@@ -4,6 +4,6 @@ Dataset/
 **/.idea/
 yolov5/
 *.wav
-recognized_text.txt
+*_text.txt
 *.xlsx
 *.mp3
