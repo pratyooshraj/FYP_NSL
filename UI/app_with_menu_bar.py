@@ -20,7 +20,7 @@ warnings.simplefilter("ignore", category=FutureWarning)
 
 from gesture_mapping import consonants_mapping, vowels_mapping, consonant_vowel_matrix
 
-os.environ['TORCH_HOME'] = "D:/Programming/FYP_NSL/cache"
+os.environ['TORCH_HOME'] = "D:/Programming/FYP_NSL/cache2"
 
 
 class SignAlphabetApp:
@@ -80,7 +80,9 @@ class SignAlphabetApp:
         self.speak_button = tk.Button(self.button_frame, text="Speak", command=self.speak_text, font=("Arial", 12),width=12)
         self.speak_button.grid(row=0, column=4, padx=10, sticky='ew')
 
-        self.model = torch.hub.load("ultralytics/yolov5", "custom",path="D:/Programming/cuda_test/yolov5/all_model.pt").half().to("cuda")
+        # self.model = torch.hub.load("ultralytics/yolov5", "custom",path="D:/Programming/cuda_test/yolov5/all_model.pt").half().to("cuda")
+        # self.model = torch.hub.load("ultralytics/yolov5", "custom",path="D:/Programming/FYP_NSL/yolov5/640all.pt", force_reload=True).half().to("cuda")
+        self.model = torch.hub.load("ultralytics/yolov5", "custom",path="D:/Programming/FYP_NSL/yolov5/640all.pt").half().to("cuda")
 
         self.cap = None  # Camera feed will be initialized on start
         self.running = False
@@ -134,7 +136,8 @@ class SignAlphabetApp:
                 continue
 
             rgb_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-            results = self.model(rgb_frame)
+            # rgb_frame = cv2.resize(rgb_frame, (640, 640))  # Or (416, 416)
+            results = self.model(cv2.resize(rgb_frame, (640, 640)))
 
             for detection in results.xyxy[0]:
                 x1, y1, x2, y2, confidence, cls = detection.tolist()
@@ -148,7 +151,8 @@ class SignAlphabetApp:
                     cv2.putText(frame, f"{class_name} {confidence:.2f}", (int(x1), int(y1) - 10),
                                 cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
 
-            img = Image.fromarray(rgb_frame)
+            # img = Image.fromarray(rgb_frame)
+            img = Image.fromarray(cv2.cvtColor(frame, cv2.COLOR_BGR2RGB))
             imgtk = ImageTk.PhotoImage(image=img)
             self.video_display.imgtk = imgtk
             self.video_display.configure(image=imgtk)
@@ -231,6 +235,8 @@ class SignAlphabetApp:
                 tts = gTTS(text, lang='ne')
                 tts.save(speech_filename)
                 os.system(f"start {speech_filename}")
+
+                messagebox.showinfo("Speak", f"Speaking text: {text}")
             except Exception as e:
                 messagebox.showerror("Error", f"An error occurred: {e}")
         else:
