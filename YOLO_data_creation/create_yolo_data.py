@@ -1,3 +1,4 @@
+# needs debugging: check move_yolo_files.py
 import os
 import shutil
 
@@ -14,12 +15,12 @@ if os.path.exists(data_folder) and os.path.isdir(data_folder):  #YOLO_Data_ver5_
                 sub_dir_path = os.path.join(dir_lvl1_path, sub_dir)
 
                 # Ensure the sub_dir_path is a directory
-                if os.path.isdir(sub_dir_path):             #YOLO_Data_ver5_2/test/test_ammptatopms
+                if os.path.isdir(sub_dir_path):             #YOLO_Data_ver5_2/test/test_annotations
                     for nested_dir in os.listdir(sub_dir_path):
                         nested_dir_path = os.path.join(sub_dir_path, nested_dir)
 
                         # Ensure the nested_dir_path is a directory
-                        if os.path.isdir(nested_dir_path):
+                        if os.path.isdir(nested_dir_path):  #YOLO_Data_ver5_2/test/test_annotations/letter
                             for file in os.listdir(nested_dir_path):
                                 file_path = os.path.join(nested_dir_path, file)
 

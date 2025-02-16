@@ -1,3 +1,5 @@
+# heavy memory usage due to multiple mediapipe object creations,
+# refer to annotate_hands_eff which uses single mediapipe object for entire process
 import os
 import random
 import shutil

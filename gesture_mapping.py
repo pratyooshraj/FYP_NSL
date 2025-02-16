@@ -283,5 +283,5 @@ consonant_vowel_matrix = {
     # Similarly add for other vowels like इ, ई, उ, ऊ, etc.
     # Continuing for all vowels in a similar fashion...
 }
-for key, value in vowels_mapping.items():
-    print(f"{value}: {key}")
+# for key, value in vowels_mapping.items():
+#     print(f"{value}: {key}")

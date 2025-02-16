@@ -48,6 +48,9 @@ class SignAlphabetApp:
 
         self.text_box = tk.Text(self.center_frame, height=1, width=43, wrap="word", font=("Noto Sans Devanagari", 25))
         self.text_box.grid(row=0, column=0, columnspan=3, padx=10, pady=10)
+        # self.text_box.insert("1.0", "नेपाली भाषा समर्थन गरिएको छ। हरइयओ कआअपई")
+        # self.text_box.insert("1.0", "नेपाली भाषा")
+        # self.text_box.insert("1.0", "हरइयओ")
 
         self.clear_button = tk.Button(self.center_frame, text="Clear", command=self.clear_textbox, font=("Arial", 14))
         self.clear_button.grid(row=0, column=3, padx=10, pady=10, sticky="e")
@@ -96,7 +99,8 @@ class SignAlphabetApp:
         filetypes=[('Text File','*.txt')]
         filename = fd.askopenfilename(
             title='Open a file',
-            initialdir='D:/Programming/FYP_NSL/UI',
+            # initialdir='D:/Programming/FYP_NSL/UI',
+            initialdir="D:/Programming/FYP_NSL/Text_and_Audio",
             filetypes=filetypes)
         self.open_saved_file(filename)
 
@@ -215,9 +219,14 @@ class SignAlphabetApp:
         self.process_text()
         text = self.text_box.get("1.0", tk.END).strip()
 
+        save_location=r"D:\Programming\FYP_NSL\Text_and_Audio"
+        if not os.path.exists(save_location):
+            os.makedirs(save_location)
+
         if text:
             filename = f"{datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}_text.txt"
-            with open(filename, "w", encoding="utf-8") as file:
+            file_path = os.path.join(save_location, filename)
+            with open(file_path, "w", encoding="utf-8") as file:
                 file.write(text)
             messagebox.showinfo("Save", f"Text saved successfully as {filename}!")
         else:
@@ -228,13 +237,20 @@ class SignAlphabetApp:
         self.process_text()
         text = self.text_box.get("1.0", tk.END).strip()
 
+        save_location = r"D:\Programming\FYP_NSL\Text_and_Audio"
+
         if text:
             try:
+                if not os.path.exists(save_location):
+                    os.makedirs(save_location)
+
                 current_time = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
                 speech_filename = f"{current_time}.mp3"
+                speech_file_path = os.path.join(save_location, speech_filename)  # Combine path and filename
+
                 tts = gTTS(text, lang='ne')
                 tts.save(speech_filename)
-                os.system(f"start {speech_filename}")
+                os.system(f"start {speech_file_path}")
 
                 messagebox.showinfo("Speak", f"Speaking text: {text}")
             except Exception as e:
