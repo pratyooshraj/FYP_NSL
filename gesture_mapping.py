@@ -203,7 +203,7 @@ consonant_vowel_matrix = {
         'GYA': 'ज्ञु'
     },
     'ऊ': {
-        'KA': 'ऊ', 'KHA': 'खू', 'GA': 'गू', 'GHA': 'घू', 'NGA': 'ङू',
+        'KA': 'कू', 'KHA': 'खू', 'GA': 'गू', 'GHA': 'घू', 'NGA': 'ङू',
         'CHA': 'चू', 'CHHA': 'छू', 'JA': 'जू', 'JHA': 'झू', 'YAN': 'ञू',
         'TA': 'टू', 'THA': 'ठू', 'DA': 'डू', 'DHA': 'ढू', 'NA': 'णू',
         'TAA': 'तू', 'THAA': 'थू', 'DAA': 'दू', 'DHAA': 'धू', 'NAA': 'नू',
@@ -280,8 +280,8 @@ consonant_vowel_matrix = {
         'M_SHA': 'षः', 'D_SHA': 'सः', 'HA': 'हः', 'KSHA': 'क्षः', 'TRA': 'त्रः',
         'GYA': 'ज्ञः'
     }
-    # Similarly add for other vowels like इ, ई, उ, ऊ, etc.
-    # Continuing for all vowels in a similar fashion...
 }
-# for key, value in vowels_mapping.items():
-#     print(f"{value}: {key}")
+
+# if __name__ == "__main__":
+#     for key, value in vowels_mapping.items():
+#         print(f"{value}: {key}")
