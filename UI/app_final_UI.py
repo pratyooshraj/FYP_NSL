@@ -51,7 +51,7 @@ class SignAlphabetApp:
         self.text_box.grid(row=0, column=0, columnspan=3, padx=10, pady=10)
         # self.text_box.insert("1.0", "नेपाली भाषा समर्थन गरिएको छ")
         # self.text_box.insert("1.0", "नेपाली भाषा")
-        # self.text_box.insert("1.0", "हरइयओ कआअपई")
+        # self.text_box.insert("1.0", "हरइयओ कआपई")
 
         self.clear_button = tk.Button(self.center_frame, text="Clear", command=self.clear_textbox, font=("Arial", 14))
         self.clear_button.grid(row=0, column=3, padx=10, pady=10, sticky="e")
@@ -89,7 +89,7 @@ class SignAlphabetApp:
         # self.model = torch.hub.load("ultralytics/yolov5", "custom",path="D:/Programming/FYP_NSL/yolov5/640all.pt").half().to("cuda")
         self.model = torch.hub.load("ultralytics/yolov5", "custom",path="D:/Programming/FYP_NSL/yolov5/640final.pt").half().to("cuda")
 
-        self.cap = None  # Camera feed will be initialized on start
+        self.cap = None
         self.running = False
         self.video_thread = None
 
@@ -117,7 +117,8 @@ class SignAlphabetApp:
 
     def start_video(self):
         if not self.running:
-            self.cap = cv2.VideoCapture(0)
+            self.cap = cv2.VideoCapture(0)      #if laptop webcam is used
+            # self.cap = cv2.VideoCapture(1)      #if additional webcam is used
             self.running = True
             # self.video_thread = threading.Thread(target=self.update_video_feed)
             # self.video_thread.start()
