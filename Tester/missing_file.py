@@ -2,15 +2,6 @@ import os
 
 
 def find_missing_files(folder1, folder2, ext1, ext2):
-    """
-    Finds and prints the names of files missing in each folder.
-
-    Args:
-        folder1 (str): Path to the first folder.
-        folder2 (str): Path to the second folder.
-        ext1 (str): File extension for files in the first folder (e.g., '.jpg').
-        ext2 (str): File extension for files in the second folder (e.g., '.txt').
-    """
     # Get the base names of files without extensions in each folder
     files1 = {os.path.splitext(f)[0] for f in os.listdir(folder1) if f.endswith(ext1)}
     files2 = {os.path.splitext(f)[0] for f in os.listdir(folder2) if f.endswith(ext2)}

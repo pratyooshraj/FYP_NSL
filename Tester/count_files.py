@@ -1,14 +1,8 @@
 import os
 
 def count_files_in_folders(folder_path, output_file="../Dataset/ver2_vowels.txt"):
-    """
-    Count the number of subfolders and files in each subfolder of the given folder.
-    Append the results to a text file.
+    # Count the number of subfolders and files in each subfolder of the given folder.
 
-    Parameters:
-        folder_path (str): Path to the main folder.
-        output_file (str): Path to the output text file.
-    """
     if not os.path.isdir(folder_path):
         print(f"The folder '{folder_path}' does not exist or is not a valid directory.")
         return
@@ -17,14 +11,12 @@ def count_files_in_folders(folder_path, output_file="../Dataset/ver2_vowels.txt"
     subfolder_count = 0
     result_lines = []
 
-    # Walk through the subfolders
     for root, dirs, files in os.walk(folder_path):
         # Skip the main folder; process only its subfolders
         if root == folder_path:
             subfolder_count = len(dirs)  # Count subfolders in the main folder
             continue
 
-        # Get the current subfolder name
         subfolder_name = os.path.basename(root)
 
         # Count all files in the current subfolder
@@ -33,10 +25,8 @@ def count_files_in_folders(folder_path, output_file="../Dataset/ver2_vowels.txt"
         # Append the result for the current subfolder
         result_lines.append(f"Subfolder: {subfolder_name}, Files: {file_count}")
 
-    # Add the summary
     result_lines.insert(0, f"Main Folder: {os.path.basename(folder_path)}, Subfolders: {subfolder_count}")
 
-    # Write the results to the output file
     with open(output_file, "a") as file:
         file.write("\n".join(result_lines) + "\n")
 

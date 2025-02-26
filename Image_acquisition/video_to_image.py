@@ -7,16 +7,8 @@ import cv2
 import os
 
 def resize_with_aspect_ratio(image, target_size=(640, 640)):
-    """
-    Resize an image to the target size while maintaining aspect ratio by cropping.
+    # Resize an image to the target size while maintaining aspect ratio by cropping.
 
-    Args:
-        image (numpy.ndarray): Input image.
-        target_size (tuple): Target size as (width, height).
-
-    Returns:
-        numpy.ndarray: Resized and cropped image.
-    """
     target_width, target_height = target_size
     height, width = image.shape[:2]
 
@@ -36,15 +28,8 @@ def resize_with_aspect_ratio(image, target_size=(640, 640)):
     return cropped_image
 
 def extract_frames(video_path, output_dir, video_name, frame_rate=10):
-    """
-    Extracts frames from a video and saves them to a directory.
+    # Extracts frames from a video and saves them to a directory.
 
-    Args:
-        video_path (str): Path to the input video file.
-        output_dir (str): Directory to save the extracted frames.
-        video_name (str): Name of the video, used in the frame filenames.
-        frame_rate (int): Number of frames to extract per second of video.
-    """
     if "_" in video_name:
         video_name = video_name.split("_", 1)[1]
 
@@ -92,14 +77,8 @@ def extract_frames(video_path, output_dir, video_name, frame_rate=10):
     print(f"Frames saved to {output_dir}: {saved_frame_count} frames extracted")
 
 def process_videos(input_dir, output_dir, frame_rate=10):
-    """
-    Processes all videos in a directory, extracting frames for each video.
+    # Processes all videos in a directory, extracting frames for each video.
 
-    Args:
-        input_dir (str): Directory containing video files.
-        output_dir (str): Directory to save all extracted frames.
-        frame_rate (int): Number of frames to extract per second of video.
-    """
     # Get a list of all video files in the input directory
     video_files = [f for f in os.listdir(input_dir) if f.lower().endswith(('.mp4', '.mov', '.avi', '.mkv'))]
 

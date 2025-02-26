@@ -40,13 +40,12 @@ count_letter=0
 letter_dir=os.path.join(output_dir,gesture_keys[count_letter])
 os.makedirs(letter_dir, exist_ok=True)
 
-# Get the duration of the video
+# Get duration of the video
 # video_duration = cap.get(cv2.CAP_PROP_FRAME_COUNT) / fps  # Duration in seconds
 # # video_duration = clip.duration  # Duration in seconds
 # start_time = time.time()
 cv2.namedWindow('Video', cv2.WINDOW_NORMAL)
 
-# Maximize the window
 cv2.resizeWindow('Video', 720, 640)
 # cv2.setWindowProperty('Video', cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
 while True:
@@ -99,7 +98,6 @@ while True:
     # if elapsed_time >= video_duration:
     #     break
 
-# Stop the audio and release resources
 # pygame.mixer.music.stop()
 cap.release()
 cv2.destroyAllWindows()

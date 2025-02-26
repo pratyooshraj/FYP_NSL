@@ -3,7 +3,6 @@ from sklearn.model_selection import train_test_split
 import shutil
 
 def split_data(src_dir, dest_dir, train_size=0.8, val_size=0.1, test_size=0.1):
-    """Split the dataset into train, validation, and test sets, maintaining class structure."""
 
     # Validate that the sum of train_size, val_size, and test_size is 1
     if not abs((train_size + val_size + test_size) - 1.0) < 1e-9:

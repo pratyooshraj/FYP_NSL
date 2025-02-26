@@ -5,14 +5,6 @@ import os
 from gesture_mapping import gesture_mapping_vowels, gesture_mapping_consonants
 
 def capture_images(output_dir, save_images=True):
-    """
-    Captures images from a webcam, detects hand landmarks in real-time using MediaPipe,
-    and optionally saves the frames with detected hands.
-
-    Args:
-        output_dir (str): Directory to save captured images.
-        save_images (bool): Whether to save the images with detected hands.
-    """
     # # Initialize MediaPipe Hands
     # mp_hands = mp.solutions.hands
     # hands = mp_hands.Hands(static_image_mode=False, max_num_hands=2, min_detection_confidence=0.8, min_tracking_confidence=0.5)
@@ -77,12 +69,11 @@ def capture_images(output_dir, save_images=True):
                 print("All gestures captured!")
                 break
 
-    # Release resources
+
     cap.release()
     cv2.destroyAllWindows()
     # hands.close()
 
-# Example usage
 # change frame number to prevent overwriting of images
 output_dir = "../Dataset"  # Directory to save images
 # output_dir = "../Dataset/captured_images/consonants"  # Directory to save images

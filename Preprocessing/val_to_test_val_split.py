@@ -3,10 +3,6 @@ import shutil
 from sklearn.model_selection import train_test_split
 
 def split_val_to_val_test(val_image_dir, val_annotation_dir, test_image_dir, test_annotation_dir, annotation_extension=".txt"):
-    """
-    Split the current `val` images and annotations into separate `val` and `test` folders.
-    Ensures that images and their corresponding annotations are moved together.
-    """
     if not os.path.exists(val_image_dir) or not os.path.exists(val_annotation_dir):
         raise FileNotFoundError(f"Validation directories {val_image_dir} or {val_annotation_dir} do not exist.")
 
@@ -28,7 +24,6 @@ def split_val_to_val_test(val_image_dir, val_annotation_dir, test_image_dir, tes
         os.makedirs(class_test_image_path, exist_ok=True)
         os.makedirs(class_test_annotation_path, exist_ok=True)
 
-        # Get list of image files in the class folder
         image_files = [f for f in os.listdir(class_val_image_path) if f.lower().endswith(('.jpg', '.png', '.jpeg'))]
 
         # Split image files into 50% val and 50% test

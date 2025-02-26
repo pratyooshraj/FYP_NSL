@@ -3,17 +3,8 @@ from gesture_mapping import gesture_mapping_consonants, gesture_mapping_vowels
 
 
 def delete_files_with_suffix(folder_path, suffixes, extensions):
-    """
-    Deletes files with the specified suffixes and extensions in the given folder.
+    # Deletes files with the specified suffixes and extensions in the given folder.
 
-    Args:
-        folder_path (str): Path to the folder where files should be deleted.
-        suffixes (list): List of suffixes to look for (e.g., ['_sc', '_rot']).
-        extensions (list): List of file extensions to look for (e.g., ['.jpg', '.txt']).
-
-    Returns:
-        int: Total number of files deleted.
-    """
     total_deleted = 0
 
     for filename in os.listdir(folder_path):

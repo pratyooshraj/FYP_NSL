@@ -4,15 +4,6 @@ from gesture_mapping import gesture_mapping_consonants, gesture_mapping_vowels
 
 
 def move_files(source_dir, destination_dir):
-    """
-    Moves all files from source_dir to destination_dir without overwriting existing files.
-
-    Args:
-        source_dir (str): Path to the source directory.
-        destination_dir (str): Path to the destination directory.
-    Returns:
-        int: Number of files moved.
-    """
     files_moved = 0
     try:
         if not os.path.exists(source_dir):

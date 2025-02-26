@@ -73,17 +73,8 @@ def change_background_color(image, color_range=((0, 0, 0), (255, 255, 255))):
 
 
 def change_background_with_mediapipe(image, mp_selfie_segmentation, color_range=((0, 0, 0), (255, 255, 255))):
-    """
-    Change the background color of an image using Mediapipe Selfie Segmentation with random translucency.
+    # Change the background color of an image using Mediapipe Selfie Segmentation with random translucency.
 
-    Parameters:
-        image (numpy.ndarray): Input image (BGR).
-        mp_selfie_segmentation (module): Mediapipe Selfie Segmentation module.
-        color_range (tuple): Range of colors for random background ((low_B, low_G, low_R), (high_B, high_G, high_R)).
-
-    Returns:
-        numpy.ndarray: Image with the updated translucent background.
-    """
     # Initialize Mediapipe Selfie Segmentation
     with mp_selfie_segmentation.SelfieSegmentation(model_selection=1) as segmenter:
         # Convert the image to RGB (required by Mediapipe)
