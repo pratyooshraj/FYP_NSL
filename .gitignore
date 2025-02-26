@@ -3,8 +3,10 @@ Dataset/
 **/__pycache__/
 **/.idea/
 yolov5/
-cache/
+cache*/
+Text_and_Audio/
 *.wav
 *_text.txt
 *.xlsx
 *.mp3
+api_key.txt
